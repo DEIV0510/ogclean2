@@ -816,6 +816,12 @@
   .hero { padding-bottom: clamp(2.5rem, 7vh, 4rem); }
 }
 
+/* En escritorio las cifras del hero quedaban a la altura de «Desliza» (cliente, 2026-10-21): el hero le deja
+   su espacio abajo (el indicador ocupa unos 78 px desde el borde) */
+@media (min-width: 768px) {
+  .hero { padding-bottom: 6.5rem; }
+}
+
 /* La pista de destacados: en móvil la pista de ayuda baja a su propia línea */
 .runway__head { flex-wrap: wrap; }
 @media (max-width: 699.98px) {
@@ -1120,6 +1126,9 @@
   color: var(--fg);
 }
 .reembolsos__reglas--no b { color: var(--muted); }
+/* Como la referencia del cliente: lo que cubre la garantía lleva franja verde y lo que no, roja */
+.reembolsos__reglas li { border-left: 3px solid #2e7d4f; }
+.reembolsos__reglas--no li { border-left-color: var(--red); }
 
 @media (min-width: 860px) {
   .reembolsos__grid { grid-template-columns: 0.9fr 1.1fr; align-items: start; }
