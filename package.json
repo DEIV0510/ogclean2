@@ -2,8 +2,9 @@
   "name": "ogclean",
   "version": "1.0.0",
   "private": true,
-  "description": "Landing OGCLEAN - gorras fitted y tenis Nike Kyrie",
+  "description": "Diseño fuente de la tienda OGCLEAN (gorras y calzado); la tienda en línea es ogcleann.com",
   "scripts": {
-    "dev": "node serve.js"
+    "dev": "node serve.js",
+    "test": "node --test"
   }
 }

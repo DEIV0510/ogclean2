@@ -6,6 +6,7 @@ import { TODOS, ORDEN_COLORES, tienePrecio } from '../data/products.js';
 import { renderCards } from '../components/productCard.js';
 import { initCompraRapida } from '../components/compraRapida.js';
 import { initFila } from '../components/fila.js';
+import { escaparHTML as esc } from '../utils/texto.js';
 
 const POR_PAGINA = 24;
 const GRUPOS_TODOS = ['Gorras cerradas', 'Gorras ajustables', 'Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Guayos', 'Botas', 'Zuecos', 'Chanclas'];
@@ -168,9 +169,8 @@ function pintarFiltros() {
 
 /* ---------------- Resultados ---------------- */
 
-/* La búsqueda llega de la dirección (?q=): se escribe como texto, nunca como HTML. Sin esto, un enlace
-   como tienda/?q=<img onerror=…> ejecutaba código en la página de quien lo abriera. */
-const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+/* La búsqueda llega de la dirección (?q=): los filtros activos se escriben con esc() (utils/texto.js), nunca
+   como HTML. Sin esto, un enlace como tienda/?q=<img onerror=…> ejecutaba código en la página de quien lo abriera. */
 
 function chipsActivos() {
   const chips = [];

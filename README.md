@@ -43,6 +43,17 @@ node serve.js
 
 Abre http://localhost:5321. Es solo para desarrollo: no sirve archivos ocultos (`.git`) ni fuera de esta carpeta.
 
+## Pruebas
+
+```
+npm test
+```
+
+Revisa sin instalar nada (Node 20 o más nuevo): que el catálogo tenga ids únicos, tallas, precios válidos y
+todas sus fotos; que la búsqueda escriba como texto lo que llega en la dirección; que `serve.js` no se caiga
+con direcciones raras ni entregue `.git` o archivos de fuera; y que `vercel.json` redirija a ogcleann.com.
+Correrlas antes de subir cambios.
+
 ## Seguridad
 
 - La búsqueda de la tienda (`?q=`) se escribe como texto, nunca como HTML.
