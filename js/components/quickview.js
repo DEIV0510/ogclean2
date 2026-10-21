@@ -78,7 +78,7 @@ function fichaHTML(p) {
         <li><span class="k">Color</span><span class="v">${p.color}</span></li>
         <li><span class="k">Tallas</span><span class="v">${p.tallas[0]}${p.unidad} — ${p.tallas[p.tallas.length - 1]}${p.unidad}</span></li>
         <li><span class="k">Envío</span><span class="v">${SITE.envios}</span></li>
-        <li><span class="k">Garantía</span><span class="v">3 días: despegue, descosido o talla</span></li>
+        <li><span class="k">Garantía</span><span class="v">15 días por despegue o descosido · talla: 5 días</span></li>
       </ul>
     </div>
 

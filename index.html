@@ -181,12 +181,6 @@
           <a class="btn btn--primary btn--lg js-magnetic" href="tienda.html">Ir a la tienda <span class="btn__arrow">→</span></a>
           <a class="btn btn--ghost btn--lg js-wa js-magnetic" data-wa="Hola OGCLEAN, quiero ver disponibilidad." href="#">Pedir por WhatsApp</a>
         </div>
-
-        <ul class="hero__facts" data-anim style="--delay:.35s">
-          <li><b>390</b><span>gorras cerradas y ajustables</span></li>
-          <li><b>617</b><span>pares de calzado</span></li>
-          <li><b>32</b><span>departamentos con envío</span></li>
-        </ul>
       </div>
 
       <!-- Mascota: vive dentro del bloque de texto para que en móvil ocupe su propia columna
@@ -202,10 +196,6 @@
       <img src="assets/img/zapatos/nike-air-more-uptempo-negro-blanco-sm.webp" srcset="assets/img/zapatos/nike-air-more-uptempo-negro-blanco-sm.webp 560w, assets/img/zapatos/nike-air-more-uptempo-negro-blanco.webp 1000w" sizes="(max-width: 1100px) 17vw, 240px" alt="" width="560" height="560" decoding="async">
     </div>
 
-    <a class="hero__scroll mono" href="#manifiesto">
-      <span>Desliza</span>
-      <i aria-hidden="true"></i>
-    </a>
   </section>
 
   <!-- ══════════ TICKER ══════════ -->
@@ -559,15 +549,15 @@
   </section>
 
   <!-- ══════════ 11c · CAMBIOS Y REEMBOLSOS ══════════ -->
-  <!-- Garantía (usuario, 2026-10-21): despegue, descosido o talla, hasta 3 días desde que recibe el pedido
-       («es de 2-3 días, no 20 días»); despegue o descosido: cambio o reembolso; talla: cambio.
-       Antes: 20 días por despegue o descosido (15-oct) y 20 días solo por defecto (audio 2026-09-30). -->
+  <!-- Garantía definitiva (usuario, 2026-10-21, con las imágenes de referencia del cliente): despegue o descosido
+       en uso normal hasta 15 días desde que recibe el pedido; cambio de talla hasta 5 días («4-5 días»).
+       Antes: 3 días (21-oct, corregido), 20 días (15-oct) y 20 días solo por defecto (audio 2026-09-30). -->
   <section class="reembolsos section" id="reembolsos" aria-labelledby="reembolsosTitulo">
     <div class="container reembolsos__grid">
       <div class="reembolsos__intro" data-anim="left">
-        <p class="eyebrow">Garantía por despegue, descosido y talla</p>
-        <h2 class="h2" id="reembolsosTitulo">Garantía<br><span class="reembolsos__dias">3 días</span></h2>
-        <p class="lead">Respaldamos la calidad de cada pieza que vendemos. Si falla en uso normal o la talla no te queda, tienes hasta 3 días desde que recibes tu pedido.</p>
+        <p class="eyebrow">Garantía por despegue y descosido</p>
+        <h2 class="h2" id="reembolsosTitulo">Garantía<br><span class="reembolsos__dias">15 días</span></h2>
+        <p class="lead">Respaldamos la calidad de cada pieza que vendemos. Así funciona nuestra garantía.</p>
       </div>
 
       <div class="reembolsos__cuerpo" data-anim>
@@ -575,30 +565,26 @@
         <ul class="reembolsos__reglas">
           <li>
             <b>01</b>
-            <span><strong>Despegue de suela</strong>Si la suela se despega en uso normal dentro de los 3 días desde que recibes el pedido, te la cambiamos o te devolvemos el dinero.</span>
+            <span><strong>Despegue de suela</strong>Si la suela se despega en uso normal dentro de los 15 días desde que recibes el pedido.</span>
           </li>
           <li>
             <b>02</b>
-            <span><strong>Descosido</strong>Si alguna costura se suelta o abre en uso normal dentro de ese mismo plazo, te la cambiamos o te devolvemos el dinero.</span>
-          </li>
-          <li>
-            <b>03</b>
-            <span><strong>Talla</strong>Si la talla no te queda, te la cambiamos dentro de ese mismo plazo.</span>
+            <span><strong>Descosido</strong>Si alguna costura se suelta o abre en uso normal dentro de ese mismo plazo.</span>
           </li>
         </ul>
         <p class="reembolsos__grupo">¿Qué no cubre?</p>
         <ul class="reembolsos__reglas reembolsos__reglas--no">
           <li>
+            <b>03</b>
+            <span><strong>Desgaste normal</strong>Por uso prolongado (más de 15 días de uso).</span>
+          </li>
+          <li>
             <b>04</b>
-            <span><strong>Fuera de plazo</strong>Solicitudes hechas después de los 3 días desde que recibes el pedido.</span>
+            <span><strong>Mal uso</strong>Daños por mal uso, golpes, humedad excesiva o uso en actividades para las que el modelo no está pensado.</span>
           </li>
           <li>
             <b>05</b>
-            <span><strong>Desgaste normal</strong>El desgaste propio del uso.</span>
-          </li>
-          <li>
-            <b>06</b>
-            <span><strong>Mal uso</strong>Daños por mal uso, golpes, humedad excesiva o uso en actividades para las que el modelo no está pensado.</span>
+            <span><strong>Talla incorrecta</strong>Si elegiste una talla que no era: para eso está el cambio de talla hasta 5 días desde que recibes el pedido.</span>
           </li>
         </ul>
         <div class="reembolsos__acciones">
@@ -714,7 +700,7 @@
     </nav>
     <div class="footer__meta">
       <p class="mono">Envíos a toda Colombia</p>
-      <p class="mono"><a href="#reembolsos">Garantía de 3 días por despegue, descosido o talla</a></p>
+      <p class="mono"><a href="#reembolsos">Garantía de 15 días por despegue o descosido · cambio de talla hasta 5 días</a></p>
     </div>
   </div>
   <div class="footer__bottom container">
@@ -765,7 +751,7 @@
         <span class="mono">Total</span>
         <strong id="cartTotal">$0</strong>
       </div>
-      <p class="cart__nota mono">Envíos a toda Colombia · Confirmamos disponibilidad por chat · Garantía de 3 días: despegue, descosido o talla</p>
+      <p class="cart__nota mono">Envíos a toda Colombia · Confirmamos disponibilidad por chat · Garantía de 15 días por despegue o descosido · Cambio de talla: 5 días</p>
       <a class="btn btn--primary btn--lg btn--block js-magnetic" id="cartCta" href="#" target="_blank" rel="noopener">
         <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.5-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.3-.1.4-.2 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg>
         Enviar pedido por WhatsApp

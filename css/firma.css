@@ -319,13 +319,6 @@
 
 /* ---------------- 7 · Dirección tipográfica ---------------- */
 
-/* Los números del hero se leen como marcadores de la marca */
-.hero__facts b {
-  font-stretch: 125%;
-  letter-spacing: -0.05em;
-}
-.hero__facts li:first-child b { color: var(--red-soft); }
-
 /* ---------------- Responsive y accesibilidad ---------------- */
 
 @media (max-width: 700px) {

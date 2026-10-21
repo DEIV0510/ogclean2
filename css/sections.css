@@ -61,28 +61,6 @@
 .hero .btn--ghost::before { background: var(--bone); }
 .hero .btn--ghost:hover { color: var(--ink); }
 
-.hero__facts {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 1.6rem;
-  padding-top: 1.1rem;
-  border-top: 1px solid color-mix(in srgb, var(--bone) 18%, transparent);
-}
-.hero__facts li { display: flex; align-items: baseline; gap: 0.45rem; }
-.hero__facts b {
-  font-family: var(--font-display);
-  font-size: clamp(1.5rem, 4vw, 2.2rem);
-  font-weight: 800;
-  letter-spacing: -0.03em;
-  line-height: 1;
-}
-.hero__facts span {
-  font-family: var(--font-mono);
-  font-size: var(--fs-micro);
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: color-mix(in srgb, var(--bone) 55%, var(--ink));
-}
 
 .hero__float {
   position: absolute;
@@ -122,30 +100,6 @@
   50% { transform: translateY(-16px) rotate(2deg); }
 }
 
-.hero__scroll {
-  position: absolute;
-  left: 50%;
-  bottom: 1rem;
-  translate: -50% 0;
-  z-index: 3;
-  display: grid;
-  justify-items: center;
-  gap: 0.5rem;
-  color: color-mix(in srgb, var(--bone) 62%, var(--ink));
-}
-.hero__scroll i {
-  display: block;
-  width: 1px;
-  height: 38px;
-  background: linear-gradient(var(--red), transparent);
-  animation: scrollCue 2s var(--ease-in-out) infinite;
-}
-@keyframes scrollCue {
-  0% { transform: scaleY(0); transform-origin: 50% 0; }
-  50% { transform: scaleY(1); transform-origin: 50% 0; }
-  51% { transform: scaleY(1); transform-origin: 50% 100%; }
-  100% { transform: scaleY(0); transform-origin: 50% 100%; }
-}
 
 /* Pantallas anchas: la mascota flota sobre el hero (no sobre el bloque de texto) */
 @media (min-width: 700.02px) {
@@ -209,7 +163,6 @@
     align-items: end;
     gap: 2.5rem;
   }
-  .hero__facts { grid-column: 1 / -1; }
   .hero__cta { justify-content: flex-end; }
 }
 
@@ -810,16 +763,9 @@
 .cta-final__title { font-size: clamp(2.8rem, 11vw, 9rem); max-width: 100%; }
 .combo__head .h2, .lineas .h2 { max-width: 14ch; }
 
-/* En móvil el indicador de scroll choca con las cifras del hero */
+/* En móvil el hero cierra con menos aire abajo (sin cifras ni «Desliza» desde el 2026-10-21) */
 @media (max-width: 767.98px) {
-  .hero__scroll { display: none; }
   .hero { padding-bottom: clamp(2.5rem, 7vh, 4rem); }
-}
-
-/* En escritorio las cifras del hero quedaban a la altura de «Desliza» (cliente, 2026-10-21): el hero le deja
-   su espacio abajo (el indicador ocupa unos 78 px desde el borde) */
-@media (min-width: 768px) {
-  .hero { padding-bottom: 6.5rem; }
 }
 
 /* La pista de destacados: en móvil la pista de ayuda baja a su propia línea */
