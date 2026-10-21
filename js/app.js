@@ -14,7 +14,7 @@ import { initCombo } from './sections/combo.js';
 import { initGuiaTallas } from './components/guiaTallas.js';
 import { initRunway } from './sections/runway.js';
 import { initFocus } from './sections/focus.js';
-import { initManifiesto, initHeroVideo, initSocialStrip, initLineas } from './sections/storytelling.js';
+import { initManifiesto, initHeroVideo, initSocialFeed, initLineas } from './sections/storytelling.js';
 
 function arrancar() {
   // 1 · Contenido y estructura (barato, inmediato)
@@ -22,7 +22,7 @@ function arrancar() {
   initTiendaPreview();
   initCombo();
   initGuiaTallas();
-  initSocialStrip();
+  initSocialFeed();
   initLineas();
 
   // 2 · Lo común a todas las páginas (header, menú, carrito, ficha, reveals…)

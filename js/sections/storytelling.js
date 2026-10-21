@@ -79,14 +79,25 @@ export function initHeroVideo() {
   });
 }
 
-/** Tira infinita de miniaturas reales sobre la sección de redes. */
-export function initSocialStrip() {
-  const strip = qs('#socialStrip');
-  if (!strip) return;
-  const muestra = [...TODOS].sort(() => 0.5 - Math.random()).slice(0, 12);
-  strip.innerHTML = muestra
-    .map((p) => `<div class="social__thumb"><img src="${p.srcCard || p.srcSm}" alt="${p.alt}" loading="lazy" decoding="async" width="300" height="300"></div>`)
+/** Sección de Instagram: 6 piezas reales del catálogo en cuadrícula, como un perfil. Todas llevan a @ogclean.co. */
+export function initSocialFeed() {
+  const feed = qs('#socialFeed');
+  if (!feed) return;
+  const muestra = [...TODOS].sort(() => 0.5 - Math.random()).slice(0, 6);
+  const icono = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" class="social__post-ig" aria-hidden="true"><rect x="3.2" y="3.2" width="17.6" height="17.6" rx="5"/><circle cx="12" cy="12" r="4.1"/><circle cx="17.3" cy="6.7" r="1.1" fill="currentColor" stroke="none"/></svg>';
+  feed.innerHTML = muestra
+    .map((p) => `<span class="social__post${p.srcCard ? '' : ' social__post--entera'}"><img src="${p.srcCard || p.srcSm}" alt="" loading="lazy" decoding="async" width="300" height="300">${icono}</span>`)
     .join('');
+  // La mitad de las fotos de calzado no son cuadradas: esas se ven enteras con margen. Las casi
+  // cuadradas llenan el recuadro (recortarlas no corta nada del producto).
+  feed.querySelectorAll('.social__post--entera img').forEach((img) => {
+    const ajustar = () => {
+      const r = img.naturalWidth / img.naturalHeight;
+      if (r > 0.9 && r < 1.1) img.parentElement.classList.remove('social__post--entera');
+    };
+    if (img.complete && img.naturalWidth) ajustar();
+    else img.addEventListener('load', ajustar, { once: true });
+  });
 }
 
 /** Paneles de líneas: activa el panel al pasar el mouse o enfocarlo. */

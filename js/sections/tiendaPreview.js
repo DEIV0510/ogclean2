@@ -1,19 +1,15 @@
-/* Vista previa de la tienda en el inicio: accesos por categoría y marca,
-   una fila corta de productos con compra rápida y salto a tienda.html. */
+/* Vista previa de la tienda en el inicio: accesos por categoría y marca y salto a tienda.html.
+   (La fila de productos «Una muestra de la tienda» se quitó el 2026-10-21, pedido del usuario.) */
 
 import { qs } from '../utils/dom.js';
-import { TODOS, DESTACADOS } from '../data/products.js';
-import { renderCards } from '../components/productCard.js';
-import { initCompraRapida } from '../components/compraRapida.js';
-import { initReveals } from '../utils/motion.js';
+import { TODOS } from '../data/products.js';
 
 const enlace = (params) => `tienda.html?${new URLSearchParams(params).toString()}`;
 
 export function initTiendaPreview() {
   const cats = qs('#previewCategorias');
   const marcas = qs('#previewMarcas');
-  const grid = qs('#previewGrid');
-  if (!grid) return;
+  if (!cats && !marcas) return;
 
   const cuenta = (g) => TODOS.filter((p) => p.grupos.includes(g)).length;
 
@@ -98,10 +94,6 @@ export function initTiendaPreview() {
         .join('');
     }
   }
-
-  renderCards(grid, DESTACADOS.slice(8, 12), { sizes: '(max-width: 700px) 46vw, (max-width: 1100px) 30vw, 22vw' });
-  initCompraRapida(grid);
-  initReveals(grid);
 
   const total = qs('#previewTotal');
   if (total) total.textContent = TODOS.length;

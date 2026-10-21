@@ -619,73 +619,85 @@
 }
 .paso p { color: var(--muted); font-size: 0.95rem; }
 
-.cifras {
-  display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: clamp(1.2rem, 3vw, 2rem);
-  margin-top: clamp(2.5rem, 6vw, 4.5rem);
-  padding-top: clamp(1.6rem, 4vw, 2.6rem);
-  border-top: 1px solid var(--line-strong);
-}
 
 @media (min-width: 860px) {
   .proceso__grid { grid-template-columns: 0.85fr 1.15fr; align-items: start; }
-  .cifras { grid-template-columns: repeat(4, minmax(0, 1fr)); }
 }
 
 /* ══════ SOCIAL ══════ */
 
-.social { position: relative; padding-bottom: clamp(3.5rem, 8vw, 6rem); overflow: hidden; }
-.social__strip {
-  overflow: hidden;
-  display: flex;
-  padding-block: clamp(1rem, 2.5vw, 1.6rem);
-  border-bottom: 1px solid color-mix(in srgb, var(--bone) 14%, transparent);
-  margin-bottom: clamp(2.5rem, 6vw, 4rem);
-}
-.social__strip .marquee__track { gap: 0.7rem; padding-right: 0.7rem; animation: marquee 44s linear infinite; }
-.social__thumb {
-  flex: 0 0 auto;
-  width: clamp(96px, 22vw, 168px);
-  aspect-ratio: 1;
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  border: 1px solid color-mix(in srgb, var(--bone) 12%, transparent);
-}
-.social__thumb img { width: 100%; height: 100%; object-fit: cover; }
-
-.social__inner { display: grid; gap: clamp(1.6rem, 4vw, 2.6rem); }
+.social { position: relative; padding-block: clamp(3.5rem, 8vw, 6rem); overflow: hidden; }
+.social__inner { display: grid; gap: clamp(2rem, 5vw, 3rem); }
+.social__text { display: grid; gap: 1.1rem; justify-items: start; align-content: start; }
 .social__text .lead { color: color-mix(in srgb, var(--bone) 68%, var(--ink)); }
-.social__cards { display: grid; gap: 0.7rem; }
-.social__card {
-  position: relative;
-  display: grid;
-  gap: 0.3rem;
-  padding: clamp(1.2rem, 3vw, 1.8rem);
-  border: 1px solid color-mix(in srgb, var(--bone) 16%, transparent);
-  border-radius: var(--radius-lg);
-  overflow: hidden;
-  transition: transform 0.45s var(--ease-out), background 0.4s ease;
+
+/* Cabecera de perfil: logo en círculo + usuario */
+.social__perfil { display: inline-flex; align-items: center; gap: 0.8rem; }
+.social__perfil img {
+  width: 54px;
+  height: 54px;
+  border-radius: 50%;
+  border: 2px solid var(--red);
+  padding: 2px;
+  background: var(--bone);
 }
-.social__card::after {
+.social__perfil > span { display: grid; gap: 0.15rem; }
+.social__perfil b { font-size: 1.1rem; }
+.social__perfil .mono { font-size: var(--fs-micro); letter-spacing: 0.08em; color: color-mix(in srgb, var(--bone) 60%, var(--ink)); }
+.social__perfil:hover b { color: var(--red-soft); }
+
+.social__acciones { display: grid; gap: 0.9rem; justify-items: start; }
+.social__acciones .btn svg { width: 20px; height: 20px; }
+.social__otras { font-size: var(--fs-micro); letter-spacing: 0.06em; color: color-mix(in srgb, var(--bone) 60%, var(--ink)); }
+.social__otras a { color: var(--bone); text-decoration: underline; text-underline-offset: 3px; }
+.social__otras a:hover { color: var(--red-soft); }
+
+/* Cuadrícula tipo perfil: 3 × 2 (la mascota va pegada a su esquina como un sticker) */
+.social__marco { position: relative; }
+.social__feed { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(0.35rem, 1vw, 0.6rem); }
+.social__post {
+  position: relative;
+  aspect-ratio: 1;
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--bone);
+}
+.social__post img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.6s var(--ease-out); }
+/* Fotos sin recorte cuadrado (calzado): enteras, nunca cortadas */
+.social__post--entera img { object-fit: contain; padding: 8%; }
+.social__post::after {
   content: '';
   position: absolute;
   inset: 0;
-  background: radial-gradient(120% 100% at 100% 0%, color-mix(in srgb, var(--red) 34%, transparent), transparent 60%);
+  background: color-mix(in srgb, var(--ink) 45%, transparent);
   opacity: 0;
-  transition: opacity 0.45s ease;
+  transition: opacity 0.35s ease;
 }
-.social__card:hover { transform: translateY(-4px); }
-.social__card:hover::after { opacity: 1; }
-.social__card svg { width: 26px; height: 26px; color: var(--red-soft); position: relative; z-index: 1; }
-.social__card-k { color: color-mix(in srgb, var(--bone) 55%, var(--ink)); position: relative; z-index: 1; }
-.social__card-v { font-weight: 700; font-size: 1.1rem; position: relative; z-index: 1; }
-.social__card svg[stroke] { fill: none; }
+.social__post-ig {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 30px;
+  height: 30px;
+  margin: -15px 0 0 -15px;
+  color: #fff;
+  opacity: 0;
+  z-index: 1;
+  transition: opacity 0.35s ease;
+}
+.social__feed:hover .social__post:hover img,
+.social__feed:focus-visible .social__post img { transform: scale(1.05); }
+.social__feed:hover .social__post:hover::after,
+.social__feed:hover .social__post:hover .social__post-ig { opacity: 1; }
+.social__feed:focus-visible { outline: 2px solid var(--red-soft); outline-offset: 4px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .social__post img { transition: none; }
+  .social__feed:hover .social__post:hover img { transform: none; }
+}
 
 @media (min-width: 860px) {
-  .social__inner { grid-template-columns: 1.1fr 0.9fr; align-items: center; gap: 3rem; }
-  .social__cards { grid-template-columns: 1fr 1fr; }
-  .social__card--ancha { grid-column: 1 / -1; }
+  .social__inner { grid-template-columns: 0.9fr 1.1fr; align-items: center; gap: clamp(2.5rem, 5vw, 4.5rem); }
 }
 
 /* ══════ CTA FINAL ══════ */
