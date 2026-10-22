@@ -417,55 +417,9 @@
 .wa-float:hover { background: #1FB855; }
 .wa-float svg { width: 27px; height: 27px; }
 
-/* Mascota: acompaña al botón de WhatsApp sin taparlo ni competir con él.
-   Aparece con el mismo scroll que el botón, discreta hasta que se toca/hover. */
-.wa-mascota {
-  position: fixed;
-  right: clamp(0.8rem, 2vw, 1.4rem);
-  bottom: clamp(0.9rem, 2vw, 1.6rem);
-  z-index: 54;
-  width: 58px;
-  transform: translate(-44px, 8px) scale(0);
-  transform-origin: bottom right;
-  opacity: 0;
-  transition: transform 0.5s var(--ease-out) 0.12s, opacity 0.4s ease 0.12s;
-  pointer-events: none;
-}
-.wa-mascota.is-visible { transform: translate(-44px, 8px) scale(1); opacity: 1; pointer-events: auto; }
-.wa-mascota img {
-  width: 100%; height: auto; display: block;
-  filter: drop-shadow(0 8px 16px rgba(12, 10, 9, 0.4));
-  transition: transform 0.2s var(--ease-out);
-}
-.wa-mascota:active img { transform: scale(0.93); }
-
-.wa-mascota__bocadillo {
-  position: absolute;
-  bottom: 100%;
-  right: 0;
-  margin-bottom: 0.6rem;
-  padding: 0.55rem 0.8rem;
-  border-radius: var(--radius-lg);
-  background: var(--ink);
-  color: var(--bone);
-  white-space: nowrap;
-  font-size: 0.72rem;
-  line-height: 1.35;
-  box-shadow: var(--shadow);
-  opacity: 0;
-  transform: translateY(6px);
-  transition: opacity 0.25s ease, transform 0.25s var(--ease-out);
-  pointer-events: none;
-}
-.wa-mascota__bocadillo b { display: block; color: var(--red-soft); font-weight: 700; }
-@media (hover: hover) {
-  .wa-mascota:hover .wa-mascota__bocadillo,
-  .wa-mascota:focus-visible .wa-mascota__bocadillo { opacity: 1; transform: translateY(0); }
-}
 
 @media (max-width: 767.98px) {
   .wa-float { bottom: calc(env(safe-area-inset-bottom, 0px) + 4.6rem); }
-  .wa-mascota { bottom: calc(env(safe-area-inset-bottom, 0px) + 4.6rem); width: 50px; }
 }
 
 /* ---------------- Mascota: cameos por sección ---------------- */
@@ -488,7 +442,7 @@
    que en desktop quedaba libre puede dejar de estarlo: en vez de perseguir
    una posición seguro por breakpoint, se ocultan aquí — el sitio ya tiene
    "menos elementos simultáneos" en móvil como pide el brief, y la mascota
-   del botón de WhatsApp (.wa-mascota, aparte) ya tiene su propio ajuste. */
+   del botón de WhatsApp se quitó el 2026-10-21. */
 @media (max-width: 767.98px) {
   .mascota-cameo { display: none; }
 }

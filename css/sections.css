@@ -700,18 +700,14 @@
 /* ══════ FOOTER ══════ */
 
 .footer { padding-top: clamp(3rem, 7vw, 5rem); position: relative; }
-.footer__inner {
-  display: grid;
-  gap: clamp(1.6rem, 4vw, 2.4rem);
-  padding-bottom: clamp(2rem, 5vw, 3rem);
+/* Pie (cliente, 2026-10-21): solo el logo grande; los enlaces ya están en el menú */
+.footer__logo {
+  display: flex;
+  justify-content: center;
+  padding-block: clamp(1rem, 4vw, 2.5rem) clamp(2.5rem, 6vw, 4rem);
   border-bottom: 1px solid color-mix(in srgb, var(--bone) 14%, transparent);
 }
-.footer__brand { display: grid; gap: 0.6rem; justify-items: start; }
-.footer__brand p { color: color-mix(in srgb, var(--bone) 62%, var(--ink)); }
-.footer__nav { display: grid; gap: 0.45rem; align-content: start; }
-.footer__nav a { width: fit-content; transition: color 0.25s ease; }
-.footer__nav a:hover { color: var(--red-soft); }
-.footer__meta { display: grid; gap: 0.35rem; align-content: start; color: color-mix(in srgb, var(--bone) 55%, var(--ink)); }
+.footer__logo img { width: clamp(220px, 42vw, 520px); height: auto; }
 
 .footer__bottom {
   display: flex;
@@ -722,13 +718,16 @@
   color: color-mix(in srgb, var(--bone) 45%, var(--ink));
 }
 
-@media (max-width: 767.98px) {
-  .footer__bottom { padding-bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px)); }
+/* En escritorio «Términos y condiciones» queda a la izquierda del botón flotante de WhatsApp */
+@media (min-width: 768px) {
+  .footer__bottom { padding-right: 5.5rem; }
 }
 
-@media (min-width: 860px) {
-  .footer__inner { grid-template-columns: 1.2fr 0.9fr 0.9fr; }
+@media (max-width: 767.98px) {
+  /* Una debajo de la otra y centradas: el botón flotante de WhatsApp no tapa «Términos y condiciones» */
+  .footer__bottom { flex-direction: column; align-items: center; gap: 0.4rem; text-align: center; padding-right: 4.75rem; padding-bottom: calc(4.6rem + env(safe-area-inset-bottom, 0px)); }
 }
+
 
 /* Cabecera de "Por qué": el dato duro acompaña al titular */
 .orbita__head {
@@ -1079,10 +1078,6 @@
 @media (min-width: 860px) {
   .reembolsos__grid { grid-template-columns: 0.9fr 1.1fr; align-items: start; }
 }
-
-/* El pie: la política de 20 días lleva a su sección */
-.footer__meta a { transition: color 0.25s ease; }
-.footer__meta a:hover { color: var(--red-soft); }
 
 /* Combo: la foto grande se ve entera (nada «mocho»); el recuadro blanco la enmarca */
 .combo__preview img { object-fit: contain; }

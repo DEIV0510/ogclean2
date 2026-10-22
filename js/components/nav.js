@@ -7,7 +7,6 @@ export function initHeader() {
   const header = qs('#header');
   const progress = qs('#progress');
   const waFloat = qs('#waFloat');
-  const waMascota = qs('#waMascota');
   const mobileBar = qs('#mobileBar');
   let ultimo = window.scrollY;
 
@@ -21,7 +20,6 @@ export function initHeader() {
 
     if (progress) progress.style.transform = `scaleX(${alto > 0 ? y / alto : 0})`;
     if (waFloat) waFloat.classList.toggle('is-visible', y > 600);
-    if (waMascota) waMascota.classList.toggle('is-visible', y > 600);
     if (mobileBar) mobileBar.classList.toggle('is-visible', y > 600);
   });
 
