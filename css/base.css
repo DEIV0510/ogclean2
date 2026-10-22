@@ -370,7 +370,9 @@ ul, ol { padding: 0; list-style: none; }
 
 .menu__body {
   display: grid;
-  align-content: center;
+  /* «safe»: si no cabe, empieza arriba en vez de esconder «Inicio» fuera del scroll */
+  align-content: start;
+  align-content: safe center;
   gap: clamp(1.6rem, 5vw, 3rem);
   padding: clamp(2rem, 6vw, 3rem) var(--gutter);
   overflow-y: auto;
@@ -389,7 +391,8 @@ ul, ol { padding: 0; list-style: none; }
   text-transform: uppercase;
   letter-spacing: -0.03em;
   line-height: 0.98;
-  font-size: clamp(1.9rem, 7.2vw, 4.6rem);
+  /* El alto también manda: los 9 enlaces caben en laptops de poca altura (1536×776, 1366×657) */
+  font-size: clamp(1.9rem, min(7.2vw, calc((100svh - 26rem) / 8.8)), 4.6rem);
   color: var(--bone);
   opacity: 0;
   transform: translateY(24px);
@@ -407,7 +410,8 @@ ul, ol { padding: 0; list-style: none; }
 }
 .menu__aside .mono { color: color-mix(in srgb, var(--bone) 50%, var(--ink)); }
 .menu__lines { display: grid; gap: 0.4rem; }
-.menu__lines a { font-size: 1.02rem; font-weight: 600; }
+.menu__lines a { display: inline-flex; align-items: center; gap: 0.65rem; justify-self: start; font-size: 1.02rem; font-weight: 600; }
+.menu__lines svg { width: 1.2rem; height: 1.2rem; flex: none; }
 .menu__lines a:hover { color: var(--red); }
 
 .menu__foot {

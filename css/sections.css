@@ -729,33 +729,9 @@
 }
 
 
-/* Cabecera de "Por qué": el dato duro acompaña al titular */
-.orbita__head {
-  display: grid;
-  gap: 1.5rem;
-  align-items: end;
-  margin-bottom: clamp(1.6rem, 4vw, 2.4rem);
-}
+/* Cabecera de "Por qué": solo el titular (la lista de cifras se quitó el 2026-10-22) */
+.orbita__head { margin-bottom: clamp(1.6rem, 4vw, 2.4rem); }
 .orbita__head .section-head { margin-bottom: 0; }
-.orbita__ficha {
-  display: grid;
-  gap: 0.1rem;
-  border-top: 1px solid var(--line-strong);
-}
-.orbita__ficha li {
-  display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  gap: 1rem;
-  padding: 0.6rem 0;
-  border-bottom: 1px solid var(--line);
-}
-.orbita__ficha .mono { color: var(--muted); }
-.orbita__ficha b { font-family: var(--font-display); font-weight: 700; letter-spacing: -0.01em; }
-
-@media (min-width: 900px) {
-  .orbita__head { grid-template-columns: 1.3fr 0.7fr; gap: 3rem; }
-}
 
 /* Ajustes finos de ritmo vertical y encaje tipográfico */
 .social__text { display: grid; gap: 1rem; justify-items: start; }
