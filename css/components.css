@@ -1374,6 +1374,38 @@
   .quick__media { position: sticky; top: clamp(1.2rem, 3vw, 2.4rem); }
 }
 
+/* Galería (piezas con varias fotos): la foto grande y sus miniaturas van juntas y caben en la pantalla */
+.quick__galeria { display: grid; gap: 0.6rem; align-content: start; min-width: 0; }
+.quick__galeria .quick__media,
+.quick__fotos { width: min(100%, calc(100vh - 14.5rem)); width: min(100%, calc(100svh - 14.5rem)); margin-inline: auto; }
+.quick__fotos {
+  display: flex;
+  gap: 0.45rem;
+  overflow-x: auto;
+  overscroll-behavior-x: contain;
+  scrollbar-width: thin;
+  padding-bottom: 0.25rem;
+}
+.quick__foto {
+  flex: 0 0 auto;
+  width: 64px;
+  height: 64px;
+  padding: 0;
+  background: #fff;
+  border: 1px solid var(--line);
+  border-radius: var(--radius);
+  overflow: hidden;
+  opacity: 0.72;
+  transition: opacity 0.2s ease, border-color 0.2s ease;
+}
+.quick__foto img { width: 100%; height: 100%; object-fit: contain; }
+.quick__foto:hover,
+.quick__foto.is-active { opacity: 1; border-color: var(--ink); }
+@media (min-width: 860px) {
+  .quick__galeria { position: sticky; top: clamp(1.2rem, 3vw, 2.4rem); }
+  .quick__galeria .quick__media { position: relative; top: auto; }
+}
+
 /* Fotos de forma extrema: enteras dentro de su caja, sin cortar el producto (productCard.js → encuadrar) */
 .card__media img.is-entera,
 .cart-item__media img.is-entera,

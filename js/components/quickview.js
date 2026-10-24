@@ -23,18 +23,28 @@ function relacionados(p) {
   return [...misma, ...otros.filter((x) => !misma.includes(x))].slice(0, 8);
 }
 
+/* Varias fotos (galería del producto en WooCommerce): miniaturas bajo la foto grande */
+function miniaturasHTML(p, fotos) {
+  return `<div class="quick__fotos" role="group" aria-label="Fotos de ${p.name}">${fotos
+    .map((f, i) => `<button class="quick__foto${i ? '' : ' is-active'}" type="button" data-foto="${f.src}" aria-label="Ver foto ${i + 1} de ${fotos.length}" aria-pressed="${i === 0}"><img src="${f.srcSm}" alt="" width="72" height="72" loading="lazy" decoding="async"></button>`)
+    .join('')}</div>`;
+}
+
 function fichaHTML(p) {
   const tallas = p.tallas
     .map((t) => `<button class="size" type="button" data-talla="${t}">${t}${p.unidad}</button>`)
     .join('');
 
-  return `
+  const media = `
     <div class="quick__media${p.video ? ' has-video' : ''}" id="quickMedia">
       <img src="${p.src}" alt="${p.alt}" width="1000" height="1000" decoding="async">
       <span class="quick__hint">Clic para acercar</span>
       ${p.video ? `<video class="quick__video" src="${p.video}" poster="${p.src}" muted loop playsinline autoplay preload="metadata" aria-label="Video 360° de ${p.name}"></video><span class="quick__hint quick__hint--video">▶ Video 360°</span>` : ''}
       ${favoritoHTML(p, 'quick')}
-    </div>
+    </div>`;
+
+  return `
+    ${p.fotos?.length > 1 ? `<div class="quick__galeria">${media}${miniaturasHTML(p, p.fotos)}</div>` : media}
 
     <div class="quick__info">
       <p class="eyebrow">${p.tipo}${p.genero === 'unisex' ? ' unisex' : ''}${p.lineaGorra ? ` · Línea ${p.lineaGorra.toLowerCase()}` : ''}${p.escala ? ` · Talla ${p.escala}` : ''}</p>
@@ -122,6 +132,31 @@ function activarZoom() {
   });
 }
 
+/** Miniaturas: cambian la foto grande (sin zoom ni video 360° encima). También la usa la página de producto. */
+export function activarGaleria(raiz) {
+  const tira = qs('.quick__fotos', raiz);
+  const media = qs('.quick__media', raiz);
+  const img = media && qs('img', media);
+  if (!tira || !img) return;
+  tira.addEventListener('click', (e) => {
+    const b = e.target.closest('.quick__foto');
+    if (!b || b.classList.contains('is-active')) return;
+    qsa('.quick__foto', tira).forEach((x) => {
+      x.classList.toggle('is-active', x === b);
+      x.setAttribute('aria-pressed', String(x === b));
+    });
+    media.classList.remove('is-zoom');
+    img.style.transformOrigin = 'center center';
+    const video = qs('.quick__video', media);
+    if (video && !video.hidden) {
+      video.pause();
+      video.hidden = true;
+      qs('.quick__hint--video', media)?.remove();
+    }
+    img.src = b.dataset.foto;
+  });
+}
+
 export function abrirFicha(id) {
   const p = porId(id);
   if (!p || !modal) return;
@@ -201,6 +236,7 @@ export function abrirFicha(id) {
   if (sizes && p.tallas.length === 1) qs('.size', sizes)?.click();
 
   activarZoom();
+  activarGaleria(cuerpo);
   qs('#quickClose')?.focus({ preventScroll: true });
 }
 
