@@ -16,6 +16,14 @@ import { initRunway } from './sections/runway.js';
 import { initFocus } from './sections/focus.js';
 import { initManifiesto, initHeroVideo, initSocialFeed, initLineas } from './sections/storytelling.js';
 
+// Los pins del runway y del focus suman alto al armarse. Si se entró con un ancla (p. ej. /#resenas al
+// volver de enviar una reseña), el navegador ya saltó antes y quedó corto: se lleva de nuevo al destino.
+function volverAlAncla() {
+  const id = decodeURIComponent(location.hash.slice(1));
+  const destino = id && document.getElementById(id);
+  if (destino) destino.scrollIntoView({ block: 'start', behavior: 'instant' });
+}
+
 function arrancar() {
   // 1 · Contenido y estructura (barato, inmediato)
   initHeroVideo(); // cuanto antes arranque, antes se ve el hero en movimiento
@@ -42,6 +50,7 @@ function arrancar() {
         initRunway(gsap);
         initFocus(gsap);
         window.ScrollTrigger.refresh();
+        volverAlAncla();
       } else {
         initRunway(null);
         initFocus(null);
