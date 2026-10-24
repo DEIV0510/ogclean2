@@ -329,8 +329,6 @@
   .linea .h2 { font-size: clamp(2rem, 3.6vw, 4.4rem); }
 }
 @media (max-width: 767.98px) {
-  /* En celular también va la mascota de la tarjeta de gorras (arriba a la derecha, sobre la foto) */
-  .linea[data-linea="caps"] .mascota-cameo { display: block; --mc-w: 88px !important; }
   /* la foto ocupa la parte derecha: el producto queda al lado del texto, no debajo (maqueta) */
   .linea__media {
     left: 30%;
