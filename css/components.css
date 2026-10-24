@@ -529,13 +529,22 @@
 }
 .cart-badge.is-empty { transform: scale(0); opacity: 0; }
 
-/* En la barra móvil el contador va en línea, no flotando */
+/* En la barra móvil el contador va en el texto: «Ver carrito · 2 →» (maqueta del cliente) */
+.mobile-bar .btn { gap: 0.5rem; min-height: 44px; }
+.mobile-bar .btn svg { width: 18px; height: 18px; flex: 0 0 auto; }
 .mobile-bar .cart-badge {
+  display: inline; /* la base es grid: el «· » y el número quedaban uno encima del otro */
   position: static;
+  min-width: 0;
+  height: auto;
+  padding: 0;
   transform: none;
   opacity: 1;
-  background: color-mix(in srgb, #fff 26%, transparent);
+  background: none;
+  color: inherit;
+  font: inherit;
 }
+.mobile-bar .cart-badge::before { content: '· '; }
 .mobile-bar .cart-badge.is-empty { display: none; }
 
 .cart {
@@ -1358,11 +1367,9 @@
 .fav-item__ver:focus-visible,
 .fav-item__media:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 
-/* Con el ♥ en el header ya son 4 botones: en celulares angostos «Comprar» queda solo con el ícono */
+/* Cuatro botones redondos en el header (buscar, ♥, carrito, menú): más juntos en celulares angostos */
 @media (max-width: 479.98px) {
   .header__actions { gap: 0.4rem; }
-  .header__cta-text { display: none; }
-  .header__actions .btn--sm { width: 46px; height: 46px; padding: 0; justify-content: center; }
 }
 
 /* ---------------- Ficha: la foto entera siempre cabe en la pantalla ---------------- */

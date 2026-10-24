@@ -87,8 +87,12 @@ function pintarBadges() {
     b.textContent = n;
     b.classList.toggle('is-empty', n === 0);
   });
+  const etiqueta = n ? `Ver carrito, ${n} artículo${n === 1 ? '' : 's'}` : 'Ver carrito, vacío';
   const boton = qs('#cartBtn');
-  if (boton) boton.setAttribute('aria-label', n ? `Ver carrito, ${n} artículo${n === 1 ? '' : 's'}` : 'Ver carrito, vacío');
+  if (boton) boton.setAttribute('aria-label', etiqueta);
+  // la barra inferior del celular muestra el número con aria-hidden: que también lo diga en voz
+  const barra = qs('.mobile-bar .js-cart-open');
+  if (barra) barra.setAttribute('aria-label', etiqueta);
 }
 
 function pintar() {

@@ -24,7 +24,7 @@ export function initCursor() {
   };
   requestAnimationFrame(loop);
 
-  const HOT = 'a, button, .card, .runway__item, .linea, .combo__thumb, .size, .chip';
+  const HOT = 'a, button, .card, .runway__item, .combo__thumb, .size, .chip';
   document.addEventListener('mouseover', (e) => {
     const hot = e.target.closest(HOT);
     cursor.classList.toggle('is-hot', !!hot);

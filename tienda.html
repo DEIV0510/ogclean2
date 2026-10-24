@@ -84,10 +84,12 @@
       <img src="assets/img/brand/logo.webp" alt="OGCLEAN" width="132" height="79">
     </a>
     <div class="header__actions">
-      <a class="btn btn--primary btn--sm js-wa js-magnetic" data-wa="Hola OGCLEAN, quiero comprar." href="#">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.5-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.3-.1.4-.2 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg>
-        <span class="header__cta-text">Comprar</span>
-      </a>
+      <form class="buscador" id="buscador" action="tienda.html" method="get" role="search" aria-label="Buscar en la tienda">
+        <input class="buscador__campo" id="buscadorCampo" type="search" name="q" placeholder="Buscar productos…" aria-label="Buscar productos" autocomplete="off" enterkeyhint="search" maxlength="60">
+        <button class="buscador__btn" type="submit" aria-label="Buscar productos" aria-controls="buscadorCampo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.6 15.6 4.6 4.6"/></svg>
+        </button>
+      </form>
       <button class="cart-btn fav-btn" id="favBtn" type="button" aria-label="Ver favoritos, ninguno guardado" aria-controls="favs">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
           <path d="M12 20.3 4.6 13C2.5 10.9 2.4 7.6 4.4 5.6c1.9-1.9 5-1.9 6.9 0l.7.7.7-.7c1.9-1.9 5-1.9 6.9 0 2 2 1.9 5.3-.2 7.4L12 20.3Z" stroke-linejoin="round"/>
@@ -161,7 +163,7 @@
         <h1 class="h1" id="tituloTienda">Tienda</h1>
         <p class="tienda-top__meta mono"><b id="tiendaTotal">1007</b> productos · Envíos a toda Colombia</p>
       </div>
-      <form class="tienda-buscar" id="tiendaBuscarForm" role="search">
+      <form class="tienda-buscar" id="tiendaBuscarForm" role="search" aria-label="Filtrar productos">
         <label class="sr-only" for="tiendaBuscar">Buscar por marca, modelo o color</label>
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><circle cx="11" cy="11" r="6.5"/><path d="M20 20l-4-4" stroke-linecap="round"/></svg>
         <input id="tiendaBuscar" type="search" inputmode="search" autocomplete="off" placeholder="Buscar marca, modelo o color… ej. jordan blanco">
@@ -392,7 +394,7 @@
 <div class="mobile-bar" id="mobileBar">
   <a class="btn btn--ghost btn--sm" href="index.html">Inicio</a>
   <button class="btn btn--primary btn--sm js-cart-open" type="button">
-    Ver carrito <span class="cart-badge is-empty" aria-hidden="true">0</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2.5 3.5h2.4l2.3 11.1a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-6.9H6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.3" cy="19.8" r="1.3"/><circle cx="17.3" cy="19.8" r="1.3"/></svg> Ver carrito <span class="cart-badge is-empty" aria-hidden="true">0</span> <span class="btn__arrow" aria-hidden="true">→</span>
   </button>
 </div>
 

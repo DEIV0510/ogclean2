@@ -4,7 +4,7 @@
 import { qs, qsa } from './utils/dom.js';
 import { wa } from './data/site.js';
 import { initReveals, initMarquees } from './utils/motion.js';
-import { initHeader, initMenu } from './components/nav.js';
+import { initHeader, initMenu, initBuscador } from './components/nav.js';
 import { initCursor, initMagnetic } from './components/cursor.js';
 import { initQuickView } from './components/quickview.js';
 import { initCart } from './components/cart.js';
@@ -40,6 +40,7 @@ export function initComun() {
   initEncuadre();
   initHeader();
   initMenu();
+  initBuscador();
   initCursor();
   initMagnetic();
   initReveals();

@@ -59,6 +59,59 @@ export function initMenu() {
   });
 }
 
+/** Buscador del header. Desde 1024 px el campo está a la vista y busca al dar Enter; en celular
+    la lupa primero abre el campo (y con el campo vacío lo cierra). Va a la tienda con ?q=. */
+export function initBuscador() {
+  const form = qs('#buscador');
+  const campo = form && qs('.buscador__campo', form);
+  const boton = form && qs('.buscador__btn', form);
+  if (!form || !campo || !boton) return;
+  const ancho = window.matchMedia('(min-width: 1024px)');
+
+  const marcar = (abierto) => {
+    form.classList.toggle('is-open', abierto);
+    if (!ancho.matches) boton.setAttribute('aria-expanded', String(abierto));
+  };
+  if (!ancho.matches) boton.setAttribute('aria-expanded', 'false');
+  ancho.addEventListener('change', () => {
+    marcar(false);
+    if (ancho.matches) boton.removeAttribute('aria-expanded');
+    else boton.setAttribute('aria-expanded', 'false');
+  });
+
+  form.addEventListener('submit', (e) => {
+    const q = campo.value.trim();
+    if (!ancho.matches && !form.classList.contains('is-open')) {
+      e.preventDefault();
+      marcar(true);
+      campo.focus();
+      return;
+    }
+    if (!q) {
+      e.preventDefault();
+      if (ancho.matches) campo.focus();
+      else { boton.focus(); marcar(false); } // el foco vuelve a la lupa, no se pierde
+      return;
+    }
+    campo.value = q;
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && form.classList.contains('is-open')) {
+      const adentro = form.contains(document.activeElement);
+      marcar(false);
+      if (adentro) boton.focus();
+    }
+  });
+  document.addEventListener('click', (e) => {
+    if (form.classList.contains('is-open') && !form.contains(e.target)) marcar(false);
+  });
+  // Con el teclado: al salir del buscador (Tab hacia ♥, carrito…) el campo se cierra
+  form.addEventListener('focusout', (e) => {
+    if (form.classList.contains('is-open') && !form.contains(e.relatedTarget)) marcar(false);
+  });
+}
+
 /** Marca el enlace del menú correspondiente a la sección visible. */
 export function initScrollSpy() {
   const links = qsa('.menu__link');

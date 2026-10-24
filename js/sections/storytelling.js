@@ -39,8 +39,15 @@ export function initHeroVideo() {
   const conexion = navigator.connection;
   if (conexion && (conexion.saveData || /(^|-)2g$/.test(conexion.effectiveType || ''))) return;
 
-  // El archivo liviano en móvil, el grande solo en pantallas anchas
-  const base = mq('(min-width: 768px)') ? 'assets/video/hero' : 'assets/video/hero-mobile';
+  // En celular el hero lleva una foto (hero-movil.webp, ≈40 KB, maqueta del cliente): el video solo en pantallas
+  // anchas. Si una tablet carga en vertical y se gira, al pasar a ancho se pone el póster y arranca el video.
+  const ancho = window.matchMedia('(min-width: 768px)');
+  if (!ancho.matches) {
+    ancho.addEventListener('change', () => { if (ancho.matches) initHeroVideo(); }, { once: true });
+    return;
+  }
+  if (!video.poster) video.poster = (window.OG ? window.OG.base : '') + 'assets/video/hero-poster.jpg';
+  const base = 'assets/video/hero';
 
   video.muted = true;          // requisito para el autoplay en todos los navegadores
   video.defaultMuted = true;

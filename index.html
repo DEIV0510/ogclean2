@@ -28,6 +28,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="preload" as="image" href="assets/img/brand/logo.webp">
 <link rel="preload" as="image" href="assets/img/brand/mascota-jordan.webp">
+<link rel="preload" as="image" href="assets/img/brand/hero-movil.webp" media="(max-width: 767.98px)" fetchpriority="high">
 <link href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@75..125,400..900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/tokens.css">
@@ -56,7 +57,7 @@
 </script>
 </head>
 
-<body>
+<body class="pagina-inicio">
 
 <a class="skip-link" href="#contenido">Saltar al contenido</a>
 
@@ -89,10 +90,12 @@
       <img src="assets/img/brand/logo.webp" alt="OGCLEAN" width="132" height="79">
     </a>
     <div class="header__actions">
-      <a class="btn btn--primary btn--sm js-wa js-magnetic" data-wa="Hola OGCLEAN, quiero comprar." href="#">
-        <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.5-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.3-.1.4-.2 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg>
-        <span class="header__cta-text">Comprar</span>
-      </a>
+      <form class="buscador" id="buscador" action="tienda.html" method="get" role="search" aria-label="Buscar en la tienda">
+        <input class="buscador__campo" id="buscadorCampo" type="search" name="q" placeholder="Buscar productos…" aria-label="Buscar productos" autocomplete="off" enterkeyhint="search" maxlength="60">
+        <button class="buscador__btn" type="submit" aria-label="Buscar productos" aria-controls="buscadorCampo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" aria-hidden="true"><circle cx="10.8" cy="10.8" r="6.3"/><path d="m15.6 15.6 4.6 4.6"/></svg>
+        </button>
+      </form>
       <button class="cart-btn fav-btn" id="favBtn" type="button" aria-label="Ver favoritos, ninguno guardado" aria-controls="favs">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true">
           <path d="M12 20.3 4.6 13C2.5 10.9 2.4 7.6 4.4 5.6c1.9-1.9 5-1.9 6.9 0l.7.7.7-.7c1.9-1.9 5-1.9 6.9 0 2 2 1.9 5.3-.2 7.4L12 20.3Z" stroke-linejoin="round"/>
@@ -157,30 +160,36 @@
   <!-- ══════════ 03 · HERO ══════════ -->
   <section class="hero is-dark" id="inicio">
     <div class="hero__bg" aria-hidden="true">
-      <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto" poster="assets/video/hero-poster.jpg"></video>
+      <video class="hero__video" id="heroVideo" autoplay muted loop playsinline preload="auto"></video>
+      <script>/* Póster solo en pantallas anchas: en celular el hero lleva foto y así no se descarga */ if (matchMedia('(min-width: 768px)').matches) document.getElementById('heroVideo').poster = 'assets/video/hero-poster.jpg';</script>
+      <picture class="hero__foto">
+        <source media="(min-width: 768px)" srcset="data:image/gif;base64,R0lGODlhAQABAAAAACH5BAEKAAEALAAAAAABAAEAAAICTAEAOw==">
+        <img src="assets/img/brand/hero-movil.webp" alt="" width="800" height="640" fetchpriority="high" decoding="async">
+      </picture>
       <div class="hero__scrim"></div>
       <div class="hero__globe" data-globo data-velocidad="18"></div>
     </div>
 
     <div class="container hero__inner">
-      <p class="eyebrow hero__eyebrow" data-anim="fade"><span class="hero__tags"><span>Gorras <b>New Era</b></span><span>Zapatillas multimarca</span><span>Colombia</span></span></p>
-
       <h1 class="display hero__title">
         <span class="hero__line" data-split>Tu fit</span>
         <span class="hero__line hero__line--alt" data-split>no se <em>copia</em></span>
       </h1>
 
       <div class="hero__grid">
-        <p class="lead hero__lead" data-anim style="--delay:.15s">
-          Gorras cerradas y ajustables de tus equipos y zapatillas de Nike, Jordan, Adidas, Salomon, On y más.
-          Eliges la talla, lo agregas al carrito y lo pides por WhatsApp.
-        </p>
+        <p class="lead hero__lead" data-anim style="--delay:.15s">Gorras y zapatillas para destacar.</p>
 
         <div class="hero__cta" data-anim style="--delay:.25s">
-          <a class="btn btn--primary btn--lg js-magnetic" href="tienda.html">Ir a la tienda <span class="btn__arrow">→</span></a>
-          <a class="btn btn--ghost btn--lg js-wa js-magnetic" data-wa="Hola OGCLEAN, quiero ver disponibilidad." href="#">Pedir por WhatsApp</a>
+          <a class="btn btn--primary btn--lg js-magnetic" href="tienda.html">Ver la tienda <span class="btn__arrow">→</span></a>
+          <a class="btn btn--ghost btn--lg js-wa js-magnetic" data-wa="Hola OGCLEAN, quiero ver disponibilidad." href="#"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.5-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.3-.1.4-.2 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg> Preguntar por WhatsApp</a>
         </div>
       </div>
+
+      <ul class="hero__confianza">
+        <li><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 6.5h11v9h-11z"/><path d="M13.5 9.5h4l3 3.2v2.8h-7"/><circle cx="7" cy="17.5" r="1.8"/><circle cx="17" cy="17.5" r="1.8"/></svg><span>Envíos a<br>Colombia</span></li>
+        <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.5-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.3-.1.4-.2 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg><span>Pedido por<br>WhatsApp</span></li>
+        <li><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.5-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.3-.1.4-.2 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg><span>Ayuda por<br>WhatsApp</span></li>
+      </ul>
 
       <!-- Mascota: vive dentro del bloque de texto para que en móvil ocupe su propia columna
            junto al título (nunca recortada ni sobre el texto); en pantallas anchas el CSS la
@@ -226,42 +235,41 @@
 
   <!-- ══════════ 05 · LÍNEAS (paneles interactivos) ══════════ -->
   <section class="lineas is-dark" id="lineas" aria-label="Nuestras dos líneas">
-    <article class="linea is-active" data-linea="caps" tabindex="0">
-      <div class="mascota-cameo" data-anim="scale" style="--mc-w:100px; --mc-rot:6deg; top:1.2rem; left:1.2rem;">
+    <article class="linea is-active" data-linea="caps">
+      <div class="mascota-cameo" data-anim="scale" style="--mc-w:100px; --mc-rot:6deg; top:1rem; right:1rem;">
         <img src="assets/img/brand/mascota-bandana-sm.webp" alt="" width="1165" height="1154" loading="lazy" decoding="async">
       </div>
       <div class="linea__media">
-        <img src="assets/img/caps/yankees-negro-oro.webp" alt="Gorra fitted New York Yankees negra con dorado" loading="lazy" width="500" height="500">
+        <img src="assets/img/caps/yankees-negro-oro.webp" alt="Gorra fitted New York Yankees negra con dorado" loading="lazy" decoding="async" width="500" height="500">
       </div>
       <div class="linea__body">
         <span class="linea__num mono">Línea 01</span>
-        <h2 class="h2">Gorras<br><span class="outline-text">OG</span></h2>
-        <p class="linea__desc">139 cerradas (tallas 7 a 7 3/8, solo las disponibles) y 251 ajustables de MLB, NBA, NFL, Supreme y más.</p>
-        <p class="linea__price mono">Filtra por equipo y liga</p>
+        <h2 class="h2">Gorras</h2>
+        <p class="linea__desc">Cerradas y ajustables de tus equipos favoritos.</p>
+        <p class="linea__price mono">MLB, NBA, NFL, Supreme y más</p>
         <div class="linea__ctas">
-          <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=Gorras+cerradas">Cerradas (139) <span class="btn__arrow">→</span></a>
-          <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=Gorras+ajustables">Ajustables (251) <span class="btn__arrow">→</span></a>
+          <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=Gorras+cerradas">Cerradas <span class="btn__arrow">→</span></a>
+          <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=Gorras+ajustables">Ajustables <span class="btn__arrow">→</span></a>
         </div>
       </div>
     </article>
 
-    <article class="linea" data-linea="sneakers" tabindex="0">
+    <article class="linea" data-linea="sneakers">
       <div class="mascota-cameo" data-anim="scale" style="--mc-w:108px; --mc-rot:-5deg; top:1.2rem; right:1.2rem;">
         <img src="assets/img/brand/mascota-nike-sm.webp" alt="" width="937" height="1512" loading="lazy" decoding="async">
       </div>
       <div class="linea__media">
-        <img src="assets/img/zapatos/jordan-air-jordan-4-blanco-rosa.webp" alt="Zapatillas Jordan Air Jordan 4 blanco y rosa" loading="lazy" width="500" height="500">
+        <img src="assets/img/zapatos/air-jordan-4-negro-rojo-gris-sm.webp" srcset="assets/img/zapatos/air-jordan-4-negro-rojo-gris-sm.webp 560w, assets/img/zapatos/air-jordan-4-negro-rojo-gris.webp 1000w" sizes="(max-width: 899px) 92vw, 48vw" alt="Zapatillas Air Jordan 4 negro, rojo y gris" loading="lazy" decoding="async" width="1000" height="978">
       </div>
       <div class="linea__body">
         <span class="linea__num mono">Línea 02</span>
-        <h2 class="h2">Zapa<br><span class="outline-text">tillas</span></h2>
-        <p class="linea__desc">472 pares de zapatillas de Nike, Jordan, Adidas, On, New Balance y más, 99 guayos, 31 botas, 10 zuecos y 5 chanclas. Todo en talla Euro: hombre 40 a 44, dama 36 a 39 y unisex 36 a 44.</p>
-        <p class="linea__price mono">Filtra por marca y elige tu talla</p>
+        <h2 class="h2">Zapatillas</h2>
+        <p class="linea__desc">Encuentra tu talla y marca de las mejores zapatillas.</p>
+        <p class="linea__price mono">Nike, Jordan, Adidas, On, New Balance y más</p>
         <div class="linea__ctas">
-          <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=B%C3%A1squetbol">Básquetbol <span class="btn__arrow">→</span></a>
           <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=Zapatillas+hombre">Hombre <span class="btn__arrow">→</span></a>
           <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=Zapatillas+dama">Dama <span class="btn__arrow">→</span></a>
-          <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=Guayos">Guayos <span class="btn__arrow">→</span></a>
+          <a class="btn btn--primary btn--sm js-magnetic" href="tienda.html?categoria=B%C3%A1squetbol">Básquetbol <span class="btn__arrow">→</span></a>
         </div>
       </div>
     </article>
@@ -787,9 +795,9 @@
 </a>
 
 <div class="mobile-bar" id="mobileBar">
-  <a class="btn btn--ghost btn--sm" href="tienda.html">Tienda</a>
+  <a class="btn btn--ghost btn--sm" href="tienda.html"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 10v10h15V10"/><path d="M3 9.5 5 4h14l2 5.5a2.6 2.6 0 0 1-4.5 1.6 2.6 2.6 0 0 1-4.5 0 2.6 2.6 0 0 1-4.5 0A2.6 2.6 0 0 1 3 9.5Z"/><path d="M10 20v-5h4v5"/></svg> Tienda</a>
   <button class="btn btn--primary btn--sm js-cart-open" type="button">
-    Ver carrito <span class="cart-badge is-empty" aria-hidden="true">0</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2.5 3.5h2.4l2.3 11.1a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-6.9H6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.3" cy="19.8" r="1.3"/><circle cx="17.3" cy="19.8" r="1.3"/></svg> Ver carrito <span class="cart-badge is-empty" aria-hidden="true">0</span> <span class="btn__arrow" aria-hidden="true">→</span>
   </button>
 </div>
 

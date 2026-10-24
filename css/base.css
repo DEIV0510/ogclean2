@@ -281,6 +281,10 @@ ul, ol { padding: 0; list-style: none; }
   border-bottom-color: var(--line);
 }
 .header.is-hidden { transform: translateY(-102%); }
+/* Con el teclado dentro del header (buscador, carrito…) el header se ve aunque se haya escondido al bajar */
+.header:focus-within { transform: none; }
+/* Celular: al recorrer con Tab, lo enfocado no queda debajo de la barra inferior fija */
+@media (max-width: 767.98px) { html { scroll-padding-bottom: 72px; } }
 
 .header__row {
   display: flex;
@@ -333,6 +337,94 @@ ul, ol { padding: 0; list-style: none; }
 }
 .is-menu-open .burger i:nth-child(1) { transform: translateY(3.25px) rotate(45deg); }
 .is-menu-open .burger i:nth-child(2) { transform: translateY(-3.25px) rotate(-45deg); }
+
+/* Buscador del header: en celular la lupa roja abre el campo bajo el header; desde 1024 px el
+   campo va a la vista, en píldora, con la lupa adentro. Busca en la tienda (?q=, su mismo buscador). */
+.buscador { display: flex; align-items: center; }
+.buscador__btn {
+  width: 46px;
+  height: 46px;
+  flex: 0 0 auto;
+  display: grid;
+  place-content: center;
+  border-radius: 50%;
+  border: 1px solid var(--red);
+  background: var(--red);
+  color: #fff;
+  transition: background var(--dur-fast) ease, border-color var(--dur-fast) ease;
+}
+@media (hover: hover) {
+  .buscador__btn:hover { background: var(--ink); border-color: var(--ink); }
+}
+.buscador__btn svg { width: 20px; height: 20px; }
+.buscador__campo {
+  min-width: 0;
+  height: 46px;
+  padding: 0 1.15rem;
+  border-radius: 999px;
+  border: 1px solid var(--line-strong);
+  background: var(--bone);
+  color: var(--ink);
+  font: inherit;
+  font-size: 1rem;
+}
+.buscador__campo::placeholder { color: var(--muted); opacity: 1; }
+@media (max-width: 1023.98px) {
+  .buscador__campo {
+    position: absolute; /* contra el header (fijo): todo su ancho, justo debajo */
+    top: calc(100% + 0.5rem);
+    left: var(--gutter);
+    right: var(--gutter);
+    height: 50px;
+    box-shadow: var(--shadow-lg);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+    transition: opacity 0.2s ease, transform 0.25s var(--ease-out), visibility 0s linear 0.25s;
+  }
+  .buscador.is-open .buscador__campo {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+    transition: opacity 0.2s ease, transform 0.25s var(--ease-out);
+  }
+}
+@media (min-width: 1024px) {
+  .buscador { position: relative; width: clamp(220px, 21vw, 300px); }
+  /* fondo opaco: en la tienda el header va sobre la foto y el texto se perdía (1,7:1) */
+  .buscador__campo { width: 100%; padding-right: 3.4rem; }
+  .buscador__campo::placeholder { color: color-mix(in srgb, var(--ink) 64%, var(--bone)); }
+  .buscador__btn { position: absolute; right: 1px; width: 44px; height: 44px; }
+  .buscador__btn svg { width: 18px; height: 18px; }
+}
+
+/* Inicio: header oscuro siempre (maqueta del cliente, 2026-10-23); tienda y términos siguen claros */
+.pagina-inicio .header,
+.pagina-inicio .header.is-solid {
+  background: color-mix(in srgb, var(--ink) 92%, transparent);
+  border-bottom-color: color-mix(in srgb, var(--bone) 10%, transparent);
+}
+.pagina-inicio .header .cart-btn,
+.pagina-inicio .header .burger {
+  background: color-mix(in srgb, var(--bone) 9%, transparent);
+  border-color: color-mix(in srgb, var(--bone) 18%, transparent);
+  color: var(--bone);
+}
+.pagina-inicio .header .burger i { background: var(--bone); }
+@media (hover: hover) {
+  .pagina-inicio .header .cart-btn:hover,
+  .pagina-inicio .header .burger:hover { background: var(--bone); border-color: var(--bone); color: var(--ink); }
+  .pagina-inicio .header .burger:hover i { background: var(--ink); }
+  .pagina-inicio .buscador__btn:hover { background: var(--bone); border-color: var(--bone); color: var(--ink); }
+}
+@media (min-width: 1024px) {
+  .pagina-inicio .buscador__campo {
+    background: color-mix(in srgb, var(--bone) 8%, transparent);
+    border-color: color-mix(in srgb, var(--bone) 18%, transparent);
+    color: var(--bone);
+  }
+  .pagina-inicio .buscador__campo::placeholder { color: color-mix(in srgb, var(--bone) 62%, transparent); }
+}
 
 /* ---------------- Menú overlay ---------------- */
 
