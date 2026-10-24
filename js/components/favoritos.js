@@ -8,6 +8,7 @@ import { qs, qsa, rafThrottle } from '../utils/dom.js';
 import { porId, tienePrecio } from '../data/products.js';
 import { wa, precioCOP } from '../data/site.js';
 import { abrirFicha } from './quickview.js';
+import { registrarCapa, abrirCapa, cerrarCapa, soltarScroll } from '../utils/capas.js';
 
 const CLAVE = 'ogclean:favoritos:v1';
 
@@ -112,18 +113,25 @@ export function abrirFavoritos() {
   panel.classList.add('is-open');
   panel.setAttribute('aria-hidden', 'false');
   document.body.classList.add('is-locked');
+  abrirCapa('favoritos'); // «atrás» lo cierra y deja la página donde estaba (utils/capas.js)
   qs('#favsClose')?.focus({ preventScroll: true });
 }
 
+let devolverFocoAlCerrar = true;
+
 export function cerrarFavoritos({ devolverFoco = true } = {}) {
   if (!panel?.classList.contains('is-open')) return;
+  devolverFocoAlCerrar = devolverFoco;
+  cerrarCapa('favoritos');
+}
+
+function ocultarFavoritos() {
   panel.classList.remove('is-open');
   panel.setAttribute('aria-hidden', 'true');
-  // La ficha y el carrito también bloquean el scroll: solo se suelta si no hay otro abierto
-  if (!qs('#quick')?.classList.contains('is-open') && !qs('#cart')?.classList.contains('is-open')) {
-    document.body.classList.remove('is-locked');
-  }
-  if (devolverFoco) boton?.focus({ preventScroll: true });
+  // La ficha y el carrito también bloquean el scroll: solo se suelta si no queda otra capa
+  soltarScroll();
+  if (devolverFocoAlCerrar) boton?.focus({ preventScroll: true });
+  devolverFocoAlCerrar = true;
 }
 
 function initPanel() {
@@ -143,6 +151,7 @@ function initPanel() {
   pintarPanel();
   boton?.addEventListener('click', abrirFavoritos);
   if (!panel) return;
+  registrarCapa('favoritos', ocultarFavoritos);
 
   panel.addEventListener('click', (e) => {
     if (e.target.closest('[data-fav-cerrar]')) { cerrarFavoritos({ devolverFoco: false }); return; }

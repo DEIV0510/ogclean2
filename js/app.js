@@ -5,6 +5,7 @@
    ============================================================ */
 
 import { whenGsap, reducedMotion } from './utils/dom.js';
+import { guardarPosicionAlSalir, posicionGuardada, volverA } from './utils/volver.js';
 import { initCounters, initParallax } from './utils/motion.js';
 import { initLoader } from './components/loader.js';
 import { initScrollSpy } from './components/nav.js';
@@ -42,7 +43,9 @@ function arrancar() {
   initParallax();
   initManifiesto();
 
-  // 4 · Lo pesado, cuando el navegador esté libre
+  // 4 · Lo pesado, cuando el navegador esté libre. Con «atrás», al terminar se vuelve al punto donde estaba
+  const vuelta = posicionGuardada();
+  guardarPosicionAlSalir();
   const pesado = () => {
     whenGsap().then((gsap) => {
       if (gsap && !reducedMotion) {
@@ -50,7 +53,8 @@ function arrancar() {
         initRunway(gsap);
         initFocus(gsap);
         window.ScrollTrigger.refresh();
-        volverAlAncla();
+        if (vuelta) volverA(vuelta.y);
+        else volverAlAncla();
       } else {
         initRunway(null);
         initFocus(null);

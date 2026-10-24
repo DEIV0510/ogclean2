@@ -7,6 +7,8 @@ import { renderCards } from '../components/productCard.js';
 import { initCompraRapida } from '../components/compraRapida.js';
 import { initFila } from '../components/fila.js';
 import { escaparHTML as esc } from '../utils/texto.js';
+import { guardarPosicionAlSalir, posicionGuardada, volverA } from '../utils/volver.js';
+import { registrarCapa, abrirCapa, cerrarCapa, soltarScroll } from '../utils/capas.js';
 
 const POR_PAGINA = 24;
 const GRUPOS_TODOS = ['Gorras cerradas', 'Gorras ajustables', 'Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Guayos', 'Botas', 'Zuecos', 'Chanclas'];
@@ -230,7 +232,8 @@ function guardarEnUrl() {
   if (estado.precio !== 'todos') u.set('precio', estado.precio);
   if (estado.orden !== 'destacados') u.set('orden', estado.orden);
   const texto = u.toString();
-  history.replaceState(null, '', `${location.pathname}${texto ? `?${texto}` : ''}`);
+  // Conserva el estado de la entrada (la ficha abierta lo usa para que «atrás» la cierre)
+  history.replaceState(history.state, '', `${location.pathname}${texto ? `?${texto}` : ''}`);
 }
 
 function leerUrl() {
@@ -258,15 +261,22 @@ function abrirPanel() {
   refs.panel.classList.add('is-open');
   refs.fondo.hidden = false;
   document.body.classList.add('is-locked');
+  abrirCapa('filtros'); // «atrás» cierra el panel y deja la tienda (utils/capas.js)
   refs.botonFiltros.setAttribute('aria-expanded', 'true');
   qs('.tienda-filtros__cerrar', refs.panel)?.focus({ preventScroll: true });
 }
 
 function cerrarPanel() {
+  if (refs.panel.classList.contains('is-open')) cerrarCapa('filtros');
+}
+
+function ocultarPanel() {
   refs.panel.classList.remove('is-open');
   refs.fondo.hidden = true;
-  document.body.classList.remove('is-locked');
+  soltarScroll();
   refs.botonFiltros.setAttribute('aria-expanded', 'false');
+  // Los filtros cambiaron la URL de la entrada del panel; al volver a la de la lista se reescribe con los de ahora
+  guardarEnUrl();
 }
 
 /* ---------------- Arranque ---------------- */
@@ -294,6 +304,7 @@ export function initShop() {
     inicioResultados: qs('#resultados'),
   };
   if (!refs.grid) return;
+  registrarCapa('filtros', ocultarPanel);
 
   // Las categorías no caben en una línea: flechas para correr la fila (pedido del dueño)
   initFila(refs.grupos, { etiqueta: 'categorías', sangrado: true });
@@ -409,8 +420,14 @@ export function initShop() {
   // Si pasan a escritorio con el panel abierto, se suelta el bloqueo
   window.matchMedia('(min-width: 1000px)').addEventListener('change', (m) => { if (m.matches) cerrarPanel(); });
 
+  // «Atrás» desde otra página: los mismos productos cargados («Ver más») y el mismo punto de la lista
+  const vuelta = posicionGuardada();
+  if (vuelta?.visibles > POR_PAGINA) estado.visibles = vuelta.visibles;
+  guardarPosicionAlSalir(() => ({ visibles: estado.visibles }));
+
   initCompraRapida(refs.grid);
   pintarResultados({ mantenerScroll: true });
+  if (vuelta) volverA(vuelta.y);
 
   // Si llegan con una categoría marcada (ej. desde el inicio), que se vea la pestaña activa
   const activa = qs('.tienda-cat.is-active', refs.grupos);

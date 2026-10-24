@@ -240,6 +240,9 @@
   background: var(--bone);
 }
 .quick__top img { width: 96px; }
+/* El logo lleva al inicio y a su lado «Volver» (cierra la ficha y deja la lista donde estaba) */
+.quick__marca { display: flex; align-items: center; gap: clamp(0.6rem, 2vw, 1.2rem); min-width: 0; }
+.quick__logo { display: block; flex: none; }
 
 .quick__close {
   display: inline-flex;
@@ -255,6 +258,12 @@
   transition: background 0.25s ease, color 0.25s ease;
 }
 .quick__close:hover { background: var(--ink); color: var(--bone); border-color: var(--ink); }
+/* Celulares angostos: logo, «Volver» y la X caben en una fila */
+@media (max-width: 419.98px) {
+  .quick__top img { width: 80px; }
+  .quick__close { padding-inline: 0.8rem; }
+  .quick__close-texto { display: none; }
+}
 
 .quick__scroll { overflow-y: auto; overscroll-behavior: contain; }
 
@@ -1411,6 +1420,13 @@
 @media (min-width: 860px) {
   .quick__galeria { position: sticky; top: clamp(1.2rem, 3vw, 2.4rem); }
   .quick__galeria .quick__media { position: relative; top: auto; }
+}
+
+/* La foto (o la galería) va dentro de .quick__lado, que se estira solo en la fila de la ficha. Si lo fijo
+   fuera hijo directo de la grilla, seguiría pegado encima de «También te puede interesar» al bajar. */
+.quick__lado { min-width: 0; }
+@media (min-width: 860px) {
+  .quick__lado { align-self: stretch; }
 }
 
 /* Fotos de forma extrema: enteras dentro de su caja, sin cortar el producto (productCard.js → encuadrar) */

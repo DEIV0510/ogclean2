@@ -4,6 +4,7 @@
 import { qs, qsa } from '../utils/dom.js';
 import { porId, tienePrecio } from '../data/products.js';
 import { SITE, wa, precioCOP } from '../data/site.js';
+import { registrarCapa, abrirCapa, cerrarCapa, soltarScroll } from '../utils/capas.js';
 
 const LLAVE = 'ogclean:carrito:v1';
 
@@ -214,15 +215,19 @@ export function abrirCarrito() {
   panel.classList.add('is-open');
   panel.setAttribute('aria-hidden', 'false');
   document.body.classList.add('is-locked');
+  abrirCapa('carrito'); // «atrás» lo cierra y deja la página donde estaba (utils/capas.js)
   qs('#cartClose')?.focus({ preventScroll: true });
 }
 
 export function cerrarCarrito() {
-  if (!panel) return;
+  if (panel?.classList.contains('is-open')) cerrarCapa('carrito');
+}
+
+function ocultarCarrito() {
   panel.classList.remove('is-open');
   panel.setAttribute('aria-hidden', 'true');
-  // La ficha de producto también bloquea el scroll: solo lo soltamos si está cerrada
-  if (!qs('#quick')?.classList.contains('is-open')) document.body.classList.remove('is-locked');
+  // La ficha de producto también bloquea el scroll: solo se suelta si no queda otra capa
+  soltarScroll();
 }
 
 /* ---------------- Arranque ---------------- */
@@ -235,6 +240,7 @@ export function initCart() {
   vacioEl = qs('#cartVacio');
   badgeEls = qsa('.cart-badge');
   if (!panel) return;
+  registrarCapa('carrito', ocultarCarrito);
 
   leer();
   pintar();

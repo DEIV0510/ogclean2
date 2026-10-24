@@ -2,6 +2,7 @@
    para que nunca se vuelva un cuello de botella. */
 
 import { qs, reducedMotion } from '../utils/dom.js';
+import { soltarScroll } from '../utils/capas.js';
 
 const CRITICAS = [
   'assets/img/brand/logo.webp',
@@ -38,7 +39,7 @@ export function initLoader() {
 
   const salir = () => {
     pintar(100);
-    document.body.classList.remove('is-locked');
+    soltarScroll(); // si al recargar se reabrió la ficha, la página de atrás sigue quieta
     if (reducedMotion) {
       loader.classList.add('is-done');
       loader.setAttribute('aria-hidden', 'true');

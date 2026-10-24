@@ -291,10 +291,16 @@
 <!-- ══════════ FICHA RÁPIDA ══════════ -->
 <div class="quick" id="quick" role="dialog" aria-modal="true" aria-label="Ficha de producto" aria-hidden="true">
   <div class="quick__top">
-    <img src="assets/img/brand/logo.webp" alt="OGCLEAN" width="96" height="58">
-    <button class="quick__close" id="quickClose" type="button">
+    <div class="quick__marca">
+      <a class="quick__logo" href="index.html" aria-label="OGCLEAN, ir al inicio"><img src="assets/img/brand/logo.webp" alt="" width="96" height="58"></a>
+      <button class="quick__close quick__volver" id="quickVolver" type="button">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M19 12H5M11 6l-6 6 6 6"/></svg>
+        Volver
+      </button>
+    </div>
+    <button class="quick__close" id="quickClose" type="button" aria-label="Cerrar">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" aria-hidden="true"><path d="M5 5l14 14M19 5L5 19"/></svg>
-      Cerrar
+      <span class="quick__close-texto">Cerrar</span>
     </button>
   </div>
   <div class="quick__scroll" id="quickScroll">

@@ -12,6 +12,7 @@ import { initVisor } from './components/visor.js';
 import { initFirma } from './components/firma.js';
 import { initFavoritos } from './components/favoritos.js';
 import { initEncuadre } from './components/productCard.js';
+import { restaurarCapas } from './utils/capas.js';
 
 /** Enlaza todos los CTA de WhatsApp con la única línea de atención. */
 export function initWhatsApp(raiz = document) {
@@ -44,6 +45,8 @@ export function initComun() {
   initCursor();
   initMagnetic();
   initReveals();
+  // Recargada (o vuelta sin la caché del navegador) sobre una entrada con la ficha abierta: se reabre
+  restaurarCapas();
 }
 
 export function alCargar(fn) {

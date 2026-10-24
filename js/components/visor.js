@@ -6,6 +6,7 @@ import { qs, qsa } from '../utils/dom.js';
 import { porId, tienePrecio } from '../data/products.js';
 import { precioCOP } from '../data/site.js';
 import { abrirFicha } from './quickview.js';
+import { registrarCapa, abrirCapa, cerrarCapa, soltarScroll } from '../utils/capas.js';
 
 let visor, escena, img, video, lista = [], pos = 0, ultimoFoco = null;
 let zoom = false;
@@ -113,18 +114,21 @@ export function abrirVisor(id, ids = []) {
   visor.hidden = false;
   requestAnimationFrame(() => visor.classList.add('is-open'));
   document.body.classList.add('is-locked');
+  abrirCapa('visor'); // «atrás» cierra el visor y deja lo de abajo (utils/capas.js)
   mostrar(inicio);
   qs('[data-visor-cerrar]', visor).focus({ preventScroll: true });
 }
 
 export function cerrarVisor() {
-  if (!visor || visor.hidden) return;
+  if (visor && !visor.hidden) cerrarCapa('visor');
+}
+
+function ocultarVisor() {
   visor.classList.remove('is-open');
   video.pause();
   ponerZoom(false);
-  // Solo soltamos el scroll si no hay otra capa abierta debajo (ficha o carrito)
-  const otraCapa = qs('#quick.is-open') || qs('#cart.is-open');
-  if (!otraCapa) document.body.classList.remove('is-locked');
+  // Solo suelta el scroll si no queda otra capa abierta debajo (ficha o carrito)
+  soltarScroll();
   setTimeout(() => { visor.hidden = true; }, 250);
   if (ultimoFoco && document.contains(ultimoFoco)) ultimoFoco.focus({ preventScroll: true });
 }
@@ -132,6 +136,7 @@ export function cerrarVisor() {
 /* ---------------- Arranque ---------------- */
 
 export function initVisor() {
+  registrarCapa('visor', ocultarVisor);
   // Delegación: cualquier ojo de cualquier grilla abre el visor con sus vecinos
   document.addEventListener('click', (e) => {
     const ojo = e.target.closest('.js-visor');

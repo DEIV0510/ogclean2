@@ -7,6 +7,7 @@ import { SITE, wa, precioCOP } from '../data/site.js';
 import { cardHTML, favoritoHTML } from './productCard.js';
 import { agregar, aviso } from './cart.js';
 import { guiaFichaHTML, guiaGorraHTML } from './guiaTallas.js';
+import { registrarCapa, abrirCapa, cerrarCapa, soltarScroll } from '../utils/capas.js';
 
 const waIcon = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2a10 10 0 0 0-8.6 15L2 22l5.2-1.4A10 10 0 1 0 12 2Zm0 18a8 8 0 0 1-4.1-1.1l-.3-.2-3 .8.8-2.9-.2-.3A8 8 0 1 1 12 20Zm4.4-5.6c-.2-.1-1.4-.7-1.6-.8-.2-.1-.4-.1-.5.1-.2.2-.6.8-.8 1-.1.2-.3.2-.5.1-1.3-.6-2.1-1.1-3-2.5-.2-.4.2-.4.6-1.2.1-.1 0-.3 0-.4-.1-.1-.5-1.3-.7-1.7-.2-.5-.4-.4-.5-.4h-.5c-.2 0-.4.1-.6.3-.2.2-.8.8-.8 1.9s.8 2.2.9 2.4c.1.2 1.6 2.5 3.9 3.5.5.2.9.4 1.3.5.5.2 1 .1 1.3-.1.4-.2 1.4-.6 1.6-1.2.2-.6.2-1.1.1-1.2-.1-.1-.2-.2-.4-.3Z"/></svg>';
 
@@ -43,8 +44,9 @@ function fichaHTML(p) {
       ${favoritoHTML(p, 'quick')}
     </div>`;
 
+  // .quick__lado ocupa solo la fila de la ficha: lo fijo de adentro se suelta antes de los relacionados
   return `
-    ${p.fotos?.length > 1 ? `<div class="quick__galeria">${media}${miniaturasHTML(p, p.fotos)}</div>` : media}
+    <div class="quick__lado">${p.fotos?.length > 1 ? `<div class="quick__galeria">${media}${miniaturasHTML(p, p.fotos)}</div>` : media}</div>
 
     <div class="quick__info">
       <p class="eyebrow">${p.tipo}${p.genero === 'unisex' ? ' unisex' : ''}${p.lineaGorra ? ` · Línea ${p.lineaGorra.toLowerCase()}` : ''}${p.escala ? ` · Talla ${p.escala}` : ''}</p>
@@ -157,9 +159,13 @@ export function activarGaleria(raiz) {
   });
 }
 
-export function abrirFicha(id) {
+export function abrirFicha(id, { historial = true } = {}) {
   const p = porId(id);
   if (!p || !modal) return;
+
+  // Entrada propia en el historial (utils/capas.js): «atrás» cierra la ficha y deja la lista donde estaba.
+  // Un relacionado reemplaza la entrada; al reabrir desde una entrada no se suma otra.
+  if (historial) abrirCapa('ficha', { ogFicha: p.id });
 
   tallaElegida = '';
   cantidadElegida = 1;
@@ -240,11 +246,14 @@ export function abrirFicha(id) {
   qs('#quickClose')?.focus({ preventScroll: true });
 }
 
-export function cerrarFicha() {
-  if (!modal) return;
+export function cerrarFicha(luego) {
+  if (modal?.classList.contains('is-open')) cerrarCapa('ficha', luego);
+}
+
+function ocultarFicha() {
   modal.classList.remove('is-open');
   modal.setAttribute('aria-hidden', 'true');
-  document.body.classList.remove('is-locked');
+  soltarScroll();
   cuerpo.innerHTML = '';
   if (ultimoFoco && document.contains(ultimoFoco)) ultimoFoco.focus({ preventScroll: true });
 }
@@ -264,8 +273,24 @@ export function initQuickView() {
     abrirFicha(disparador.dataset.id);
   });
 
-  qs('#quickClose')?.addEventListener('click', cerrarFicha);
+  qs('#quickClose')?.addEventListener('click', () => cerrarFicha());
+  qs('#quickVolver')?.addEventListener('click', () => cerrarFicha());
   document.addEventListener('keydown', (e) => {
     if (e.key === 'Escape' && modal.classList.contains('is-open')) cerrarFicha();
+  });
+
+  // El logo lleva al inicio. Si ya estamos en el inicio no recarga: cierra la ficha y sube arriba
+  qs('.quick__logo')?.addEventListener('click', (e) => {
+    if (new URL(e.currentTarget.href, location.href).pathname !== location.pathname) return;
+    e.preventDefault();
+    // Al volver atrás el navegador repone la posición de la lista justo después del popstate: se sube en el cuadro siguiente
+    cerrarFicha(() => requestAnimationFrame(() => window.scrollTo({ top: 0, behavior: 'instant' })));
+  });
+
+  // Atrás la cierra; adelante, o al recargar sobre su entrada, se vuelve a abrir con el mismo producto
+  registrarCapa('ficha', ocultarFicha, (estado) => {
+    if (!porId(estado?.ogFicha)) return false;
+    abrirFicha(estado.ogFicha, { historial: false });
+    return true;
   });
 }
