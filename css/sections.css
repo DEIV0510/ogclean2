@@ -224,7 +224,8 @@
 
 .manifiesto {
   position: relative;
-  padding-block: clamp(5rem, 14vw, 11rem);
+  /* abajo poco: «Piezas destacadas» va justo después (el dueño pidió quitar el hueco, 26-oct) */
+  padding-block: clamp(5rem, 14vw, 11rem) clamp(2rem, 5vw, 4rem);
   background: var(--bone);
 }
 .manifiesto__inner { display: grid; gap: clamp(1.6rem, 4vw, 2.6rem); justify-items: start; }
@@ -343,7 +344,7 @@
 
 /* ══════ RUNWAY (scroll horizontal) ══════ */
 
-.runway { position: relative; background: var(--bone); padding-block: clamp(3.5rem, 9vw, 6rem) clamp(3rem, 7vw, 5rem); overflow: hidden; }
+.runway { position: relative; background: var(--bone); padding-block: clamp(1.5rem, 4vw, 3rem) clamp(3rem, 7vw, 5rem); overflow: hidden; }
 .runway__head {
   display: flex;
   align-items: flex-end;
@@ -788,6 +789,34 @@
 .cta-final__title { line-height: 0.86; }
 .cta-final .lead { color: color-mix(in srgb, var(--bone) 78%, var(--ink)); }
 .cta-final__actions { display: flex; flex-wrap: wrap; gap: 0.6rem; justify-content: center; }
+
+/* Redes encima de la imagen (antes iban aparte en «Hablemos»): 2 por fila en celular, 4 en escritorio */
+.cta-final__redes {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 0.6rem;
+  width: min(100%, 46rem);
+  margin-top: clamp(0.6rem, 2vw, 1.2rem);
+}
+@media (min-width: 760px) { .cta-final__redes { grid-template-columns: repeat(4, minmax(0, 1fr)); } }
+.red {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: 0.15rem 0.6rem;
+  padding: 0.75rem 0.85rem;
+  border: 1px solid color-mix(in srgb, var(--bone) 22%, transparent);
+  border-radius: var(--radius-lg);
+  background: color-mix(in srgb, var(--ink) 55%, transparent);
+  backdrop-filter: blur(6px);
+  color: var(--bone);
+  text-align: left;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+.red:hover { background: color-mix(in srgb, var(--ink) 80%, transparent); border-color: color-mix(in srgb, var(--bone) 45%, transparent); }
+.red svg { grid-row: span 2; width: 22px; height: 22px; color: var(--red); }
+.red__titulo { font-family: var(--font-mono); font-size: var(--fs-micro); letter-spacing: 0.12em; text-transform: uppercase; color: color-mix(in srgb, var(--bone) 70%, transparent); }
+.red__valor { font-weight: 700; font-size: 0.92rem; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 .cta-final .btn--ghost { color: var(--bone); border-color: color-mix(in srgb, var(--bone) 34%, transparent); }
 .cta-final .btn--ghost::before { background: var(--bone); }
 .cta-final .btn--ghost:hover { color: var(--ink); }
