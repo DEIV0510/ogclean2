@@ -1067,6 +1067,24 @@
 
 /* Precio anterior en la ficha */
 .quick__antes { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); margin-top: -0.6rem; }
+
+/* «Paga a cuotas con Sistecrédito» bajo el precio (se activa en Ajustes OGCLEAN) */
+.quick__cuotas {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0.75rem 0.95rem;
+  border: 1px solid var(--line-strong);
+  border-radius: var(--radius-lg);
+  background: #fff;
+  color: var(--ink);
+  font-size: 0.92rem;
+  line-height: 1.4;
+  transition: border-color 0.2s ease;
+}
+.quick__cuotas:hover { border-color: var(--ink); }
+.quick__cuotas svg { flex: none; color: var(--red); }
+.quick__cuotas u { text-underline-offset: 3px; color: var(--red); }
 .quick__antes s { text-decoration-thickness: 1.5px; }
 
 /* ---------------- Visor de fotos (el ojo) ---------------- */

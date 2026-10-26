@@ -13,6 +13,17 @@ const waIcon = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
 
 const bolsaIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" aria-hidden="true"><path d="M2.5 3.5h2.4l2.3 11.1a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-6.9H6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.3" cy="19.8" r="1.3"/><circle cx="17.3" cy="19.8" r="1.3"/></svg>';
 
+/* Pago a cuotas con Sistecrédito (dueño, 26-oct: el recuadro de Addi de deltaprimeco como ejemplo). Sale solo
+   si la tienda lo activa en Productos → Ajustes OGCLEAN (window.OG.sistecredito): el cliente toca el recuadro
+   y escribe por WhatsApp con el producto y la talla, y la tienda le gestiona el pago con su cupo. */
+const conCuotas = () => window.OG?.sistecredito === true;
+const tarjetaIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="22" height="22" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9.5h19M6 15h4" stroke-linecap="round"/></svg>';
+const cuotasHTML = () => `
+      <a class="quick__cuotas" id="quickCuotas" href="#" target="_blank" rel="noopener">
+        ${tarjetaIcon}
+        <span>Paga a cuotas con <b>Sistecrédito</b>. <u>Escríbenos y pide tu cupo</u></span>
+      </a>`;
+
 let modal, cuerpo, scroll, ultimoFoco = null;
 let tallaElegida = '';
 let cantidadElegida = 1;
@@ -55,6 +66,7 @@ function fichaHTML(p) {
 
       <p class="quick__price${tienePrecio(p) ? '' : ' is-cotizar'}" id="quickPrecio"><span id="quickPrecioN">${precioCOP(p.precio)}</span> <small>${tienePrecio(p) ? 'Precio confirmado' : 'Agrégalo y te lo confirmamos en el chat'}</small></p>
       ${descuento(p) ? `<p class="quick__antes">Antes <s>${precioCOP(descuento(p).antes)}</s> · Ahorras ${precioCOP(descuento(p).ahorro)} (-${descuento(p).porcentaje}%)</p>` : ''}
+      ${conCuotas() ? cuotasHTML() : ''}
 
       <div>
         <p class="mono" style="margin-bottom:.5rem">${p.tallas.length === 1 ? 'Talla única' : `Elige tu talla${p.escala ? ` (${p.escala})` : ''}`}</p>
@@ -182,6 +194,9 @@ export function abrirFicha(id, { historial = true } = {}) {
   const precioN = qs('#quickPrecioN');
 
   const refrescarCta = () => { if (cta) cta.href = wa(mensaje(p)); };
+  const cuotas = qs('#quickCuotas');
+  const refrescarCuotas = () => { if (cuotas) cuotas.href = wa(`${mensaje(p)} Quiero pagarlo a cuotas con Sistecrédito.`); };
+  refrescarCuotas();
   const refrescarPrecio = () => { if (precioN && tienePrecio(p)) precioN.textContent = precioCOP(p.precio * cantidadElegida); };
   refrescarCta();
 
@@ -193,6 +208,7 @@ export function abrirFicha(id, { historial = true } = {}) {
       if (qtyN) qtyN.textContent = cantidadElegida;
       refrescarPrecio();
       refrescarCta();
+      refrescarCuotas();
     });
   }
 
@@ -205,6 +221,7 @@ export function abrirFicha(id, { historial = true } = {}) {
       tallaElegida = b.dataset.talla;
       sizes.classList.remove('is-hint');
       refrescarCta();
+      refrescarCuotas();
     });
   }
 
@@ -220,6 +237,9 @@ export function abrirFicha(id, { historial = true } = {}) {
   if (cta) {
     cta.addEventListener('click', (e) => { if (pedirTalla()) e.preventDefault(); });
   }
+
+  // Sistecrédito: sin talla elegida, primero se señala la talla (igual que «Comprar ahora»)
+  cuotas?.addEventListener('click', (e) => { if (pedirTalla()) e.preventDefault(); });
 
   const add = qs('#quickAdd');
   if (add) {
