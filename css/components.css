@@ -1083,8 +1083,8 @@
   transition: border-color 0.2s ease;
 }
 .quick__cuotas:hover { border-color: var(--ink); }
-.quick__cuotas svg { flex: none; color: var(--red); }
-.quick__cuotas u { text-underline-offset: 3px; color: var(--red); }
+.quick__cuotas-logo { display: inline-block; height: 1.05em; width: auto; vertical-align: -0.16em; margin-left: 0.1em; }
+.quick__cuotas u { text-underline-offset: 3px; color: #0033a0; } /* el azul del logo, como el enlace de Addi */
 .quick__antes s { text-decoration-thickness: 1.5px; }
 
 /* ---------------- Visor de fotos (el ojo) ---------------- */

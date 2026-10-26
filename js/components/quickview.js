@@ -17,11 +17,12 @@ const bolsaIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" st
    si la tienda lo activa en Productos → Ajustes OGCLEAN (window.OG.sistecredito): el cliente toca el recuadro
    y escribe por WhatsApp con el producto y la talla, y la tienda le gestiona el pago con su cupo. */
 const conCuotas = () => window.OG?.sistecredito === true;
-const tarjetaIcon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="22" height="22" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2"/><path d="M2.5 9.5h19M6 15h4" stroke-linecap="round"/></svg>';
+// Logo oficial (icono de su app en Shopify), recortado en assets/img/brand/sistecredito.webp
+const logoSistecredito = () => `${window.OG ? window.OG.base : ''}assets/img/brand/sistecredito.webp`;
 const cuotasHTML = () => `
       <a class="quick__cuotas" id="quickCuotas" href="#" target="_blank" rel="noopener">
-        ${tarjetaIcon}
-        <span>Paga a cuotas con <b>Sistecrédito</b>. <u>Escríbenos y pide tu cupo</u></span>
+        <span>Paga a cuotas con <img class="quick__cuotas-logo" src="${logoSistecredito()}" alt="Sistecrédito" width="131" height="16" decoding="async">.
+        <u>Escríbenos y pide tu cupo</u></span>
       </a>`;
 
 let modal, cuerpo, scroll, ultimoFoco = null;
