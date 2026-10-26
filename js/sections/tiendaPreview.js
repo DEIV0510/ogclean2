@@ -27,11 +27,11 @@ export function initTiendaPreview() {
     };
     // 8 accesos: en escritorio llenan la grilla de 3 (Básquetbol ocupa dos filas); una categoría sin
     // productos no se muestra
-    cats.innerHTML = ['Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Gorras cerradas', 'Gorras ajustables', 'Guayos', 'Botas', 'Zuecos', 'Chanclas']
+    cats.innerHTML = ['Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Kids', 'Gorras cerradas', 'Gorras ajustables', 'Guayos', 'Botas', 'Zuecos', 'Chanclas']
       .filter((g) => cuenta(g) > 0)
       .map((g) => `
       <a class="preview-cat" href="${enlace({ categoria: g })}">
-        <img src="${portada[g]}" alt="" loading="lazy" decoding="async" width="560" height="560">
+        <img src="${portada[g] || TODOS.find((p) => p.grupos.includes(g))?.srcSm}" alt="" loading="lazy" decoding="async" width="560" height="560">
         <span class="preview-cat__txt">
           <span class="preview-cat__n mono">${cuenta(g)} productos</span>
           <span class="preview-cat__t">${g}</span>
@@ -48,10 +48,10 @@ export function initTiendaPreview() {
     TODOS.forEach((p) => {
       if (p.linea !== 'sneakers' || p.marca === 'Otras') return;
       conteo[p.marca] = (conteo[p.marca] || 0) + 1;
-      const g = (porGenero[p.marca] = porGenero[p.marca] || { Hombre: 0, Dama: 0 });
+      const g = (porGenero[p.marca] = porGenero[p.marca] || { Hombre: 0, Dama: 0, Kids: 0 });
       p.generos.forEach((x) => { g[x] += 1; });
     });
-    const generosHTML = (m, clase) => ['Hombre', 'Dama']
+    const generosHTML = (m, clase) => ['Hombre', 'Dama', 'Kids']
       .filter((g) => porGenero[m][g])
       .map((g) => `<a class="${clase}" href="${enlace({ marca: m, genero: g })}">${g} <b>${porGenero[m][g]}</b></a>`)
       .join('');

@@ -11,7 +11,7 @@ import { guardarPosicionAlSalir, posicionGuardada, volverA } from '../utils/volv
 import { registrarCapa, abrirCapa, cerrarCapa, soltarScroll } from '../utils/capas.js';
 
 const POR_PAGINA = 24;
-const GRUPOS_TODOS = ['Gorras cerradas', 'Gorras ajustables', 'Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Guayos', 'Botas', 'Zuecos', 'Chanclas'];
+const GRUPOS_TODOS = ['Gorras cerradas', 'Gorras ajustables', 'Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Kids', 'Guayos', 'Botas', 'Zuecos', 'Chanclas'];
 // Una categoría sin productos no se muestra como pestaña
 const GRUPOS = GRUPOS_TODOS.filter((g) => TODOS.some((p) => p.grupos.includes(g)));
 
@@ -26,7 +26,7 @@ const esGrupo = (p, g) => p.grupos.includes(g)
    `orden` fija el orden de las opciones; si no, se ordenan por cantidad. */
 const FACETAS = [
   // Género del calzado (las unisex están en los dos; las gorras no tienen): «Adidas dama», «Jordan hombre»…
-  { id: 'genero', campo: 'generos', param: 'genero', orden: ['Hombre', 'Dama'] },
+  { id: 'genero', campo: 'generos', param: 'genero', orden: ['Hombre', 'Dama', 'Kids'] },
   { id: 'lineaGorra', campo: 'lineaGorra', param: 'linea', orden: ['Clásica', 'Exclusiva'] },
   { id: 'liga', campo: 'liga', param: 'liga', orden: ['MLB', 'NBA', 'NFL', 'NHL', 'NCAA', 'World Baseball Classic', 'Marcas', 'Otras'],
     etiqueta: (v) => ({ Marcas: 'Marcas (Supreme, Jordan…)', Otras: 'Otras' }[v] || v) },

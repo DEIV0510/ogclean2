@@ -109,6 +109,10 @@ export function initSocialFeed() {
 
 /** Paneles de líneas: activa el panel al pasar el mouse o enfocarlo. */
 export function initLineas() {
+  // Accesos de categorías que pueden no tener productos todavía (Kids): salen solo si hay
+  qsa('[data-solo-si-hay]').forEach((a) => {
+    a.hidden = !TODOS.some((p) => p.grupos.includes(a.dataset.soloSiHay));
+  });
   const paneles = qsa('.linea');
   paneles.forEach((panel) => {
     const activar = () => paneles.forEach((p) => p.classList.toggle('is-active', p === panel));

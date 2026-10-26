@@ -1329,3 +1329,6 @@
 @media (min-width: 700px) {
   .preview__cats:has(> .preview-cat:nth-child(9)) .preview-cat:first-child { grid-row: auto; }
 }
+
+/* Acceso de una categoría que aún no tiene productos (Kids): oculto hasta que storytelling.js lo muestre */
+.linea__ctas [data-solo-si-hay][hidden] { display: none; }

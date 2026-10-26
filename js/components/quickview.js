@@ -49,7 +49,7 @@ function fichaHTML(p) {
     <div class="quick__lado">${p.fotos?.length > 1 ? `<div class="quick__galeria">${media}${miniaturasHTML(p, p.fotos)}</div>` : media}</div>
 
     <div class="quick__info">
-      <p class="eyebrow">${p.tipo}${p.genero === 'unisex' ? ' unisex' : ''}${p.lineaGorra ? ` · Línea ${p.lineaGorra.toLowerCase()}` : ''}${p.escala ? ` · Talla ${p.escala}` : ''}</p>
+      <p class="eyebrow">${p.tipo}${{ unisex: ' unisex', kids: ' kids' }[p.genero] || ''}${p.lineaGorra ? ` · Línea ${p.lineaGorra.toLowerCase()}` : ''}${p.escala ? ` · Talla ${p.escala}` : ''}</p>
       <h2 class="h2 quick__title">${p.name}</h2>
       <p class="lead">${p.tag}${p.tag.toLowerCase().includes(p.color.toLowerCase()) ? '' : ` · ${p.color}`}. ${p.linea === 'caps' ? (p.cierre === 'Ajustable' ? 'Ajustable, talla única.' : 'Cerrada, solo las tallas disponibles.') : `${p.marca}${p.genero === 'unisex' ? ', unisex (hombre y dama)' : ''}, talla ${p.escala}.`}</p>
 
@@ -59,7 +59,7 @@ function fichaHTML(p) {
       <div>
         <p class="mono" style="margin-bottom:.5rem">${p.tallas.length === 1 ? 'Talla única' : `Elige tu talla${p.escala ? ` (${p.escala})` : ''}`}</p>
         <div class="sizes" id="quickSizes" role="group" aria-label="Tallas disponibles">${tallas}</div>
-        ${p.linea === 'sneakers' ? guiaFichaHTML(p) : p.cierre !== 'Ajustable' ? guiaGorraHTML(p) : ''}
+        ${p.linea === 'sneakers' ? (p.genero === 'kids' ? '' : guiaFichaHTML(p)) : p.cierre !== 'Ajustable' ? guiaGorraHTML(p) : ''}
       </div>
 
       <div>

@@ -193,6 +193,8 @@ const minus = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   if (p.linea === 'caps') {
     p.grupo = p.cierre === 'Ajustable' ? 'Gorras ajustables' : 'Gorras cerradas';
     p.equipo = p.equipo || null;
+  } else if (p.genero === 'kids') {
+    p.grupo = 'Kids'; // sección Kids (dueño, 26-oct): todo el calzado de niño junto, sea zapatilla, bota o básquetbol
   } else if (['Botas', 'Guayos', 'Zuecos', 'Chanclas'].includes(p.tipo)) {
     p.grupo = p.tipo;
   } else if (p.deporte === 'basquetbol') {
@@ -203,7 +205,7 @@ const minus = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
   // Categorías en las que aparece: las unisex salen en hombre y en dama
   p.grupos = p.genero === 'unisex' && p.grupo === 'Zapatillas hombre' ? ['Zapatillas hombre', 'Zapatillas dama'] : [p.grupo];
   // Género para navegar por marca: una unisex sale en hombre y en dama; las gorras no llevan género
-  p.generos = p.linea === 'caps' ? [] : ({ unisex: ['Hombre', 'Dama'], dama: ['Dama'] }[p.genero] || ['Hombre']);
+  p.generos = p.linea === 'caps' ? [] : ({ unisex: ['Hombre', 'Dama'], dama: ['Dama'], kids: ['Kids'] }[p.genero] || ['Hombre']);
 });
 
 export const TODOS = [...LINEAS.caps.items, ...LINEAS.sneakers.items];
