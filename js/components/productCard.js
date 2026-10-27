@@ -1,12 +1,14 @@
 /* Tarjeta de producto reutilizable (inicio, tienda, pasarela y relacionados).
    Limpia, como la referencia que mandó el dueño (26-oct): foto → nombre → color → precio y, si hay
-   precio anterior real, «Oferta» en la foto y el precio de antes tachado. Las tallas no van aquí:
+   precio anterior real, «Oferta» en la foto y el precio de antes tachado. El ojo (abajo al centro de la foto) abre
+   las fotos en grande sin salir de la lista (el dueño pidió dejarlo, 28-oct). Las tallas no van aquí:
    se eligen al abrir el producto (toda la tarjeta abre la ficha). `rapida: true` vuelve a poner
    las tallas y los botones de compra rápida bajo el precio. */
 
 import { precioCOP } from '../data/site.js';
 import { descuento, tienePrecio } from '../data/products.js';
 
+const ojo = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" width="20" height="20" aria-hidden="true"><path d="M2.5 12S6 5.5 12 5.5 21.5 12 21.5 12 18 18.5 12 18.5 2.5 12 2.5 12Z" stroke-linejoin="round"/><circle cx="12" cy="12" r="3"/></svg>';
 const bolsa = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="15" height="15" aria-hidden="true"><path d="M2.5 3.5h2.4l2.3 11.1a1.6 1.6 0 0 0 1.6 1.3h8.6a1.6 1.6 0 0 0 1.6-1.2l1.6-6.9H6" stroke-linecap="round" stroke-linejoin="round"/><circle cx="9.3" cy="19.8" r="1.3"/><circle cx="17.3" cy="19.8" r="1.3"/></svg>';
 const corazon = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" width="16" height="16" aria-hidden="true"><path d="M12 20.3 4.6 13C2.5 10.9 2.4 7.6 4.4 5.6c1.9-1.9 5-1.9 6.9 0l.7.7.7-.7c1.9-1.9 5-1.9 6.9 0 2 2 1.9 5.3-.2 7.4L12 20.3Z" stroke-linejoin="round"/></svg>';
 
@@ -45,6 +47,7 @@ export function cardHTML(p, { sizes = '(max-width: 700px) 46vw, (max-width: 1100
         ${d ? `<span class="card__desc">Oferta<span class="sr-only"> -${d.porcentaje}%</span></span>` : ''}
         <img src="${p.srcCard || p.srcSm}" ${p.srcCard ? '' : `srcset="${p.srcSm} 560w, ${p.src} 1000w" sizes="${sizes}"`}
              alt="${p.alt}" ${prioridad ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="560" height="560">
+        <button class="card__ojo js-visor" type="button" data-id="${p.id}" aria-label="Ver fotos de ${p.name} en grande">${ojo}</button>
         ${favoritoHTML(p)}
       </div>
       <div class="card__body">
