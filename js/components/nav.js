@@ -66,6 +66,20 @@ export function initBuscador() {
   const campo = form && qs('.buscador__campo', form);
   const boton = form && qs('.buscador__btn', form);
   if (!form || !campo || !boton) return;
+
+  // En la tienda ya hay un buscador grande (#tiendaBuscar): la lupa del header lleva a ese en vez de abrir
+  // otra barra encima (el dueño vio dos barras a la vez, 27-oct)
+  const propio = qs('#tiendaBuscar');
+  if (propio) {
+    form.classList.add('is-atajo');
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+      propio.focus({ preventScroll: true }); // en el mismo toque: así el celular abre el teclado
+      propio.scrollIntoView({ block: 'center', behavior: 'smooth' });
+    });
+    return;
+  }
+
   const ancho = window.matchMedia('(min-width: 1024px)');
 
   const marcar = (abierto) => {

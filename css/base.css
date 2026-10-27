@@ -402,6 +402,14 @@ ul, ol { padding: 0; list-style: none; }
   .buscador__btn svg { width: 18px; height: 18px; }
 }
 
+/* En la tienda la lupa solo lleva al buscador grande de la página (nav.js): sin campo en el header */
+.buscador.is-atajo { width: auto; }
+.buscador.is-atajo .buscador__campo { display: none; }
+@media (min-width: 1024px) {
+  .buscador.is-atajo .buscador__btn { position: static; width: 46px; height: 46px; }
+  .buscador.is-atajo .buscador__btn svg { width: 20px; height: 20px; }
+}
+
 /* Inicio: header oscuro siempre (maqueta del cliente, 2026-10-23); tienda y términos siguen claros */
 .pagina-inicio .header,
 .pagina-inicio .header.is-solid {
