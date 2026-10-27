@@ -1394,9 +1394,15 @@
 .fav-item__ver:focus-visible,
 .fav-item__media:focus-visible { outline: 2px solid var(--red); outline-offset: 2px; }
 
-/* Cuatro botones redondos en el header (buscar, ♥, carrito, menú): más juntos en celulares angostos */
+/* Cuatro botones redondos en el header (menú y buscar | ♥ y carrito): más juntos en celulares angostos */
 @media (max-width: 479.98px) {
-  .header__actions { gap: 0.4rem; }
+  .header__izq, .header__actions { gap: 0.4rem; }
+}
+/* Celulares muy angostos: botones y logo un poco más chicos para que todo quepa en una fila */
+@media (max-width: 379.98px) {
+  .header__row { gap: 0.35rem; }
+  .header .burger, .header .cart-btn, .header .buscador__btn { --burger-size: 40px; width: 40px; height: 40px; }
+  .header__logo img { width: 84px; }
 }
 
 /* ---------------- Ficha: la foto entera siempre cabe en la pantalla ---------------- */

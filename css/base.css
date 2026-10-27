@@ -286,13 +286,17 @@ ul, ol { padding: 0; list-style: none; }
 /* Celular: al recorrer con Tab, lo enfocado no queda debajo de la barra inferior fija */
 @media (max-width: 767.98px) { html { scroll-padding-bottom: 72px; } }
 
+/* Menú y búsqueda a la izquierda, logo en el centro, favoritos y carrito a la derecha (referencia del dueño, 27-oct).
+   Dos columnas iguales a los lados: el logo queda centrado aunque cada lado tenga otro ancho. */
 .header__row {
-  display: flex;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
   align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
+  gap: 0.6rem;
   padding-block: clamp(0.7rem, 1.6vw, 1.1rem);
 }
+.header__izq { display: flex; align-items: center; gap: 0.6rem; justify-self: start; min-width: 0; }
+.header__logo { justify-self: center; }
 
 .header__logo img {
   width: clamp(96px, 12vw, 132px);
@@ -300,7 +304,7 @@ ul, ol { padding: 0; list-style: none; }
 }
 .header__logo:hover img { transform: rotate(-2deg) scale(1.03); }
 
-.header__actions { display: flex; align-items: center; gap: 0.6rem; }
+.header__actions { display: flex; align-items: center; gap: 0.6rem; justify-self: end; }
 
 .header__progress {
   position: absolute;
