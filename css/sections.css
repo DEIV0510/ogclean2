@@ -372,12 +372,14 @@
   width: min(74vw, 340px);
   scroll-snap-align: center;
   display: grid;
+  align-content: start;
   gap: 0.8rem;
 }
-.runway__item:nth-child(even) { padding-top: clamp(1rem, 4vw, 3.4rem); }
+/* Todas a la misma altura y en caja cuadrada, como las tarjetas de la tienda: las fotos de fondo blanco
+   (cuadradas) llenan la caja sin cortarse ni dejar franjas («que queden bien ordenados», dueño 28-oct) */
 .runway__media {
   position: relative;
-  aspect-ratio: 4 / 5;
+  aspect-ratio: 1 / 1;
   overflow: hidden;
   background: #fff;
   border: 1px solid var(--line);

@@ -78,8 +78,10 @@ export function cardHTML(p, { sizes = '(max-width: 700px) 46vw, (max-width: 1100
 /* Fotos de forma extrema (muy verticales o muy anchas): con «cover» la caja les cortaría el
    producto («que no queden mochas las imágenes», dueño 2026-10-01). Esas se muestran enteras
    (contain) sobre el fondo blanco de la caja; las demás siguen llenándola como siempre. */
-const CAJAS = [['.card__media', 1], ['.cart-item__media', 1], ['.runway__media', 0.8]];
-const RECORTE_MAX = 0.21; // lo que se puede perder de la foto sin que el zapato quede cortado
+// [caja, forma de la caja, lo que se puede perder de la foto sin que el zapato quede cortado].
+// En «Piezas destacadas» las fotos 3:4 también llenan (pierden 25 %): una franja blanca al lado
+// desordena la fila («que queden bien ordenados», 28-oct); las destacadas se revisaron recortadas.
+const CAJAS = [['.card__media', 1, 0.21], ['.cart-item__media', 1, 0.21], ['.runway__media', 1, 0.3]];
 
 export function encuadrar(img) {
   if (!img.naturalWidth || !img.naturalHeight) return;
@@ -87,7 +89,7 @@ export function encuadrar(img) {
   if (!caja) return;
   const forma = img.naturalWidth / img.naturalHeight;
   const recorte = 1 - Math.min(forma / caja[1], caja[1] / forma);
-  img.classList.toggle('is-entera', recorte > RECORTE_MAX);
+  img.classList.toggle('is-entera', recorte > caja[2]);
 }
 
 /** Encuadra cada foto al cargar, también las de tarjetas que se pintan después (filtros, ficha…). */
