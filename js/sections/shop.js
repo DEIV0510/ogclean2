@@ -79,6 +79,17 @@ function filtrar(ignorar = '') {
 function ordenar(lista) {
   const copia = [...lista];
   const nombre = (a, b) => a.name.localeCompare(b.name, 'es') || a.tag.localeCompare(b.tag, 'es');
+  if (estado.orden === 'destacados') {
+    // El calzado del mismo modelo sale seguido (todas las Air Force juntas) donde aparece el primero;
+    // antes salían regados por toda la lista (pedido del dueño). Las gorras quedan como están.
+    const modelos = new Map();
+    copia.forEach((p) => {
+      const k = p.linea === 'sneakers' ? `modelo:${p.name}` : p.id;
+      if (!modelos.has(k)) modelos.set(k, []);
+      modelos.get(k).push(p);
+    });
+    return [...modelos.values()].flat();
+  }
   if (estado.orden === 'az') copia.sort(nombre);
   if (estado.orden === 'za') copia.sort((a, b) => nombre(b, a));
   if (estado.orden === 'precio') {
