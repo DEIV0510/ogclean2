@@ -76,19 +76,33 @@ function filtrar(ignorar = '') {
   });
 }
 
+/* Referencia del calzado: marca + primera palabra del modelo. Así quedan juntas las versiones de una misma
+   línea: Salomon XT, XT-6 y XT-6 GTX; Air Jordan 1 Low, Mid y High; Air Max 95, 90 y Plus; F50 y F50 TF. */
+function referencia(p) {
+  const marca = p.marca || '';
+  const resto = p.name.startsWith(`${marca} `) ? p.name.slice(marca.length + 1) : p.name;
+  const w = resto.split(/\s+/);
+  if (/^air$/i.test(w[0]) && /^jordan$/i.test(w[1] || '')) return `${marca}|${w.slice(0, 3).join(' ')}`.toLowerCase();
+  if (/^air$/i.test(w[0])) return `${marca}|${w.slice(0, 2).join(' ')}`.toLowerCase();
+  return `${marca}|${w[0].split('-')[0]}`.toLowerCase();
+}
+
 function ordenar(lista) {
   const copia = [...lista];
   const nombre = (a, b) => a.name.localeCompare(b.name, 'es') || a.tag.localeCompare(b.tag, 'es');
   if (estado.orden === 'destacados') {
-    // El calzado del mismo modelo sale seguido (todas las Air Force juntas) donde aparece el primero;
-    // antes salían regados por toda la lista (pedido del dueño). Las gorras quedan como están.
-    const modelos = new Map();
+    // El calzado de la misma referencia sale seguido donde aparece el primero, y dentro de ella cada modelo
+    // junto (todas las Salomon XT, luego las XT-6…); antes salían regadas por la lista (pedido del dueño).
+    // Las gorras quedan como están.
+    const grupos = new Map();
     copia.forEach((p) => {
-      const k = p.linea === 'sneakers' ? `modelo:${p.name}` : p.id;
-      if (!modelos.has(k)) modelos.set(k, []);
-      modelos.get(k).push(p);
+      const k = p.linea === 'sneakers' ? `ref:${referencia(p)}` : p.id;
+      if (!grupos.has(k)) grupos.set(k, new Map());
+      const modelos = grupos.get(k);
+      if (!modelos.has(p.name)) modelos.set(p.name, []);
+      modelos.get(p.name).push(p);
     });
-    return [...modelos.values()].flat();
+    return [...grupos.values()].flatMap((modelos) => [...modelos.values()].flat());
   }
   if (estado.orden === 'az') copia.sort(nombre);
   if (estado.orden === 'za') copia.sort((a, b) => nombre(b, a));
