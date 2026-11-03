@@ -1,6 +1,6 @@
 /* Tarjeta de producto reutilizable (inicio, tienda, pasarela y relacionados).
-   Limpia, como la referencia que mandó el dueño (26-oct): foto → nombre → color → precio y, si hay
-   precio anterior real, «Oferta» en la foto y el precio de antes tachado. El ojo (abajo al centro de la foto) abre
+   Limpia, como la referencia que mandó el dueño (26-oct): foto → nombre → color → precio con el anterior
+   tachado al lado (3-nov; «Oferta» en la foto solo si ese precio anterior es real). El ojo (abajo al centro de la foto) abre
    las fotos en grande sin salir de la lista (el dueño pidió dejarlo, 28-oct). Las tallas no van aquí:
    se eligen al abrir el producto (toda la tarjeta abre la ficha). `rapida: true` vuelve a poner
    las tallas y los botones de compra rápida bajo el precio. */
@@ -18,7 +18,7 @@ export const favoritoHTML = (p, clase = 'card') =>
 
 const TALLAS_A_LA_VISTA = 5;
 
-/** Precio principal arriba y, si hay precio anterior real, tachado debajo. */
+/** Precio y, al lado, el precio anterior tachado (si no cabe en la fila, baja). */
 export function precioHTML(p, clase = 'card') {
   const d = descuento(p);
   if (!tienePrecio(p)) return `<p class="${clase}__price is-cotizar">${precioCOP(p.precio)}</p>`;
@@ -44,7 +44,7 @@ export function cardHTML(p, { sizes = '(max-width: 700px) 46vw, (max-width: 1100
   return `
     <article class="card${rapida ? ' has-rapida' : ''}" data-id="${p.id}" data-cat="${p.cat}" data-idx="${p.idx}">
       <div class="card__media">
-        ${d ? `<span class="card__desc">Oferta<span class="sr-only"> -${d.porcentaje}%</span></span>` : ''}
+        ${d?.real ? `<span class="card__desc">Oferta<span class="sr-only"> -${d.porcentaje}%</span></span>` : ''}
         <img src="${p.srcCard || p.srcSm}" ${p.srcCard ? '' : `srcset="${p.srcSm} 560w, ${p.src} 1000w" sizes="${sizes}"`}
              alt="${p.alt}" ${prioridad ? 'fetchpriority="high"' : 'loading="lazy"'} decoding="async" width="560" height="560">
         <button class="card__ojo js-visor" type="button" data-id="${p.id}" aria-label="Ver fotos de ${p.name} en grande">${ojo}</button>

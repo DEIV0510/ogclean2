@@ -303,8 +303,9 @@
 .quick__title { font-size: clamp(1.9rem, 5vw, 3.2rem); }
 .quick__price {
   display: flex;
+  flex-wrap: wrap;
   align-items: baseline;
-  gap: 0.7rem;
+  gap: 0.25rem 0.7rem;
   font-family: var(--font-display);
   font-weight: 800;
   font-size: clamp(1.5rem, 4vw, 2.1rem);
@@ -997,7 +998,7 @@
 .card__kicker { color: var(--muted); font-size: 0.6rem; }
 .card__meta { text-transform: none; letter-spacing: 0.02em; font-family: var(--font-body); font-size: 0.8rem; }
 
-.card__precios { display: grid; gap: 0.05rem; margin-top: 0.15rem; }
+.card__precios { display: flex; flex-wrap: wrap; align-items: baseline; gap: 0 0.5rem; margin-top: 0.15rem; }
 .card__price {
   font-family: var(--font-display);
   font-size: clamp(1.02rem, 2.6vw, 1.2rem);
@@ -1065,8 +1066,9 @@
   .card__acciones .card__buy svg { display: none; }
 }
 
-/* Precio anterior en la ficha */
-.quick__antes { font-family: var(--font-mono); font-size: 0.82rem; color: var(--muted); margin-top: -0.6rem; }
+/* Precio anterior tachado y porcentaje, al lado del precio de la ficha */
+.quick__antes { font-family: var(--font-mono); font-size: clamp(0.92rem, 2.4vw, 1.05rem); font-weight: 500; letter-spacing: 0; color: var(--muted); text-decoration-thickness: 1.5px; }
+.quick__pct { font-family: var(--font-mono); font-size: clamp(0.92rem, 2.4vw, 1.05rem); font-weight: 700; letter-spacing: 0; color: var(--red); }
 
 /* «Paga a cuotas con Sistecrédito» bajo el precio (se activa en Ajustes OGCLEAN) */
 .quick__cuotas {
@@ -1085,7 +1087,6 @@
 .quick__cuotas:hover { border-color: var(--ink); }
 .quick__cuotas-logo { display: inline-block; height: 1.05em; width: auto; vertical-align: -0.16em; margin-left: 0.1em; }
 .quick__cuotas u { text-underline-offset: 3px; color: #0033a0; } /* el azul del logo, como el enlace de Addi */
-.quick__antes s { text-decoration-thickness: 1.5px; }
 
 /* ---------------- Visor de fotos (el ojo) ---------------- */
 

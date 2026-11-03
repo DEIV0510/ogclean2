@@ -2,7 +2,7 @@
    Móvil: scroll nativo con snap. Escritorio: pin + scrub con GSAP. */
 
 import { qs, mq, reducedMotion } from '../utils/dom.js';
-import { DESTACADOS } from '../data/products.js';
+import { DESTACADOS, descuento } from '../data/products.js';
 import { precioCOP } from '../data/site.js';
 import { tilt } from '../utils/motion.js';
 
@@ -20,7 +20,7 @@ function itemHTML(p, i) {
           <p class="runway__name">${p.name}</p>
           <p class="runway__tag">${p.tag}</p>
         </div>
-        <p class="runway__price">${precioCOP(p.precio)}</p>
+        <p class="runway__price">${precioCOP(p.precio)}${descuento(p) ? `<s class="runway__antes"><span class="sr-only">Antes </span>${precioCOP(descuento(p).antes)}</s>` : ''}</p>
       </div>
       <button class="runway__link js-quick" type="button" data-id="${p.id}" data-cursor="VER" aria-label="Ver ficha de ${p.name}"></button>
     </article>`;

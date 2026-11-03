@@ -65,8 +65,7 @@ function fichaHTML(p) {
       <h2 class="h2 quick__title">${p.name}</h2>
       <p class="lead">${p.tag}${p.tag.toLowerCase().includes(p.color.toLowerCase()) ? '' : ` · ${p.color}`}. ${p.linea === 'caps' ? (p.cierre === 'Ajustable' ? 'Ajustable, talla única.' : 'Cerrada, solo las tallas disponibles.') : `${p.marca}${p.genero === 'unisex' ? ', unisex (hombre y dama)' : ''}, talla ${p.escala}.`}</p>
 
-      <p class="quick__price${tienePrecio(p) ? '' : ' is-cotizar'}" id="quickPrecio"><span id="quickPrecioN">${precioCOP(p.precio)}</span> <small>${tienePrecio(p) ? 'Precio confirmado' : 'Agrégalo y te lo confirmamos en el chat'}</small></p>
-      ${descuento(p) ? `<p class="quick__antes">Antes <s>${precioCOP(descuento(p).antes)}</s> · Ahorras ${precioCOP(descuento(p).ahorro)} (-${descuento(p).porcentaje}%)</p>` : ''}
+      <p class="quick__price${tienePrecio(p) ? '' : ' is-cotizar'}" id="quickPrecio"><span id="quickPrecioN">${precioCOP(p.precio)}</span>${descuento(p) ? ` <s class="quick__antes"><span class="sr-only">Antes </span><span id="quickAntesN">${precioCOP(descuento(p).antes)}</span></s> <span class="quick__pct">-${descuento(p).porcentaje}%</span>` : ''} <small>${tienePrecio(p) ? 'Precio confirmado' : 'Agrégalo y te lo confirmamos en el chat'}</small></p>
       ${conCuotas() ? cuotasHTML() : ''}
 
       <div>
@@ -193,12 +192,16 @@ export function abrirFicha(id, { historial = true } = {}) {
   const qty = qs('#quickQty');
   const qtyN = qs('#quickQtyN');
   const precioN = qs('#quickPrecioN');
+  const antesN = qs('#quickAntesN');
 
   const refrescarCta = () => { if (cta) cta.href = wa(mensaje(p)); };
   const cuotas = qs('#quickCuotas');
   const refrescarCuotas = () => { if (cuotas) cuotas.href = wa(`${mensaje(p)} Quiero pagarlo a cuotas con Sistecrédito.`); };
   refrescarCuotas();
-  const refrescarPrecio = () => { if (precioN && tienePrecio(p)) precioN.textContent = precioCOP(p.precio * cantidadElegida); };
+  const refrescarPrecio = () => {
+    if (precioN && tienePrecio(p)) precioN.textContent = precioCOP(p.precio * cantidadElegida);
+    if (antesN && descuento(p)) antesN.textContent = precioCOP(descuento(p).antes * cantidadElegida);
+  };
   refrescarCta();
 
   if (qty) {

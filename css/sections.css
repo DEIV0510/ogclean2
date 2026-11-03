@@ -401,7 +401,8 @@
 .runway__info { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
 .runway__name { font-family: var(--font-display); font-weight: 700; text-transform: uppercase; font-size: 1.02rem; letter-spacing: -0.01em; }
 .runway__tag { font-family: var(--font-mono); font-size: var(--fs-micro); text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
-.runway__price { font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; }
+.runway__price { font-family: var(--font-mono); font-size: 0.82rem; font-weight: 700; text-align: right; white-space: nowrap; }
+.runway__antes { display: block; font-size: 0.74rem; font-weight: 500; color: var(--muted); text-decoration-thickness: 1.5px; }
 .runway__link { position: absolute; inset: 0; z-index: 3; }
 
 @media (min-width: 900px) {
