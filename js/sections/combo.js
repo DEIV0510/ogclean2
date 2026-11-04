@@ -13,7 +13,7 @@ import { initFila } from '../components/fila.js';
 const CATEGORIAS = {
   caps: [['Gorras cerradas', 'Cerradas'], ['Gorras ajustables', 'Ajustables']],
   sneakers: [['Básquetbol', 'Básquetbol'], ['Zapatillas hombre', 'Hombre'], ['Zapatillas dama', 'Dama'],
-    ['Guayos', 'Guayos'], ['Botas', 'Botas'], ['Zuecos', 'Zuecos'], ['Chanclas', 'Chanclas']],
+    ['Guayos', 'Guayos'], ['Botas', 'Botas'], ['Zuecos', 'Zuecos'], ['Chanclas', 'Chanclas'], ['Sandalias', 'Sandalias']],
 };
 const itemsDe = (linea, grupo) => LINEAS[linea].items.filter((p) => p.grupos.includes(grupo));
 

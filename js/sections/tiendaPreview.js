@@ -27,7 +27,7 @@ export function initTiendaPreview() {
     };
     // 8 accesos: en escritorio llenan la grilla de 3 (Básquetbol ocupa dos filas); una categoría sin
     // productos no se muestra
-    cats.innerHTML = ['Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Kids', 'Gorras cerradas', 'Gorras ajustables', 'Guayos', 'Botas', 'Zuecos', 'Chanclas']
+    cats.innerHTML = ['Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Kids', 'Gorras cerradas', 'Gorras ajustables', 'Guayos', 'Botas', 'Zuecos', 'Chanclas', 'Sandalias']
       .filter((g) => cuenta(g) > 0)
       .map((g) => `
       <a class="preview-cat" href="${enlace({ categoria: g })}">

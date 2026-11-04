@@ -11,7 +11,7 @@ import { guardarPosicionAlSalir, posicionGuardada, volverA } from '../utils/volv
 import { registrarCapa, abrirCapa, cerrarCapa, soltarScroll } from '../utils/capas.js';
 
 const POR_PAGINA = 24;
-const GRUPOS_TODOS = ['Gorras cerradas', 'Gorras ajustables', 'Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Kids', 'Guayos', 'Botas', 'Zuecos', 'Chanclas'];
+const GRUPOS_TODOS = ['Gorras cerradas', 'Gorras ajustables', 'Básquetbol', 'Zapatillas hombre', 'Zapatillas dama', 'Kids', 'Guayos', 'Botas', 'Zuecos', 'Chanclas', 'Sandalias'];
 // Una categoría sin productos no se muestra como pestaña
 const GRUPOS = GRUPOS_TODOS.filter((g) => TODOS.some((p) => p.grupos.includes(g)));
 

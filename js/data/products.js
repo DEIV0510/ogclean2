@@ -195,7 +195,7 @@ const minus = (t) => t.normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase();
     p.equipo = p.equipo || null;
   } else if (p.genero === 'kids') {
     p.grupo = 'Kids'; // sección Kids (dueño, 26-oct): todo el calzado de niño junto, sea zapatilla, bota o básquetbol
-  } else if (['Botas', 'Guayos', 'Zuecos', 'Chanclas'].includes(p.tipo)) {
+  } else if (['Botas', 'Guayos', 'Zuecos', 'Chanclas', 'Sandalias'].includes(p.tipo)) {
     p.grupo = p.tipo;
   } else if (p.deporte === 'basquetbol') {
     p.grupo = 'Básquetbol';
